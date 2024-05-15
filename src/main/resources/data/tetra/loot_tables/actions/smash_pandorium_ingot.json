@@ -1,0 +1,21 @@
+{
+  "pools":[
+    {
+      "name":"smash_pandorium_ingot",
+      "rolls":1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "forge:dusts/pandorium",
+          "expand":true,
+          "functions":[
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+   {
+    "key":"smash_ender_pearl_action",
+    "requirement":{
+      "items":[
+        "minecraft:ender_pearl"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"minecraft:iron"
+    },
+    "lootTable":"tetra:actions/smash_ender_pearl"
+  }
+]

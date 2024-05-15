@@ -1,0 +1,28 @@
+{
+    "key": "pandorium",
+    "category": "metal",
+    "primary": 8.6,
+    "secondary": 4.1,
+    "tertiary": 4.8,
+    "durability": 5058,
+    "integrityCost": 2,
+    "integrityGain": 11,
+    "magicCapacity": 125,
+    "toolLevel": "mtetm:adamantium",
+    "toolEfficiency":12,
+    "tints": {
+        "glyph": "C0C7D4",
+        "texture": "C0C7D4"
+    },
+    "textures": [
+        "uru",
+        "metal",
+	    "heavy"
+    ],
+    "material": {
+        "items": [ "mtetm:pandorium_ingot" ]
+    },
+    "requiredTools": {
+        "hammer_dig": "mtetm:mithril"
+    }
+}

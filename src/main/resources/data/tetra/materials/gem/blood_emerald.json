@@ -1,0 +1,30 @@
+{
+    "key": "blood_emerald",
+    "category": "gem",
+    "primary": 6.0,
+    "secondary": 3.0,
+    "tertiary": 0,
+    "durability": 950,
+    "integrityCost": 2,
+    "integrityGain": 2,
+    "magicCapacity": 85,
+    "toolLevel": "minecraft:iron",
+    "toolEfficiency": 7.5,
+    "tints": {
+        "glyph": "FF0000",
+        "texture": "FF0000"
+    },
+    "textures": [
+        "shiny",
+        "crude"
+    ],
+    "material": {
+        "items": [ "mtetm:blood_emerald" ]
+    },
+    "improvements": {
+        "arrested": 0
+    },
+    "requiredTools": {
+        "hammer_dig": "minecraft:diamond"
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "key": "socket_rose_quartz",
+  "hidden": true,
+  "category": "socket",
+  "primary": 0,
+  "secondary": 0,
+  "tertiary": 0,
+  "durability": 60,
+  "integrityCost": 1,
+  "integrityGain": 0,
+  "magicCapacity": 20,
+  "toolLevel": 0,
+  "toolEfficiency": 0,
+  "effects": {
+    "stun": [15, 2]
+  },
+  "tints": {
+    "glyph": "CB4872",
+    "texture": "CB4872"
+  },
+  "textures": ["default"],
+  "experienceCost": 2,
+  "material": {
+    "tag": "forge:gems/rose_quartz"
+  }
+}

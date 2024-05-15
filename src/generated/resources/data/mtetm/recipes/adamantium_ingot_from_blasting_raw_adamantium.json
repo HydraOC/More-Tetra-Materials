@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "adamantium",
+  "ingredient": {
+    "item": "mtetm:raw_adamantium"
+  },
+  "result": "mtetm:adamantium_ingot"
+}

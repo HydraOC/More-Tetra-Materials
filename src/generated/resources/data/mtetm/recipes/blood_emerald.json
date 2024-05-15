@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "mtetm:blood_emerald_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "mtetm:blood_emerald"
+  }
+}

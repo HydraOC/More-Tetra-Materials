@@ -1,0 +1,21 @@
+{
+  "pools":[
+    {
+      "name":"smash_ender_pearl",
+      "rolls":1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "forge:dusts/ender_pearl",
+          "expand":true,
+          "functions":[
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

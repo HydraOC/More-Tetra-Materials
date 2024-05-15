@@ -1,0 +1,21 @@
+{
+  "pools":[
+    {
+      "name":"smash_blood_emerald",
+      "rolls":1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "forge:dusts/blood_emerald",
+          "expand":true,
+          "functions":[
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

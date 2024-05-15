@@ -1,0 +1,21 @@
+{
+  "pools":[
+    {
+      "name":"smash_adamantium_ingot",
+      "rolls":1,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "name": "forge:dusts/adamantium",
+          "expand":true,
+          "functions":[
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

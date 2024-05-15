@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "mtetm:pandorium_dust"
+        },
+        {
+            "item": "mtetm:pandorium_dust"
+        },
+        {
+            "tag": "forge:dusts/ender_pearl"
+        },
+        {
+            "tag": "forge:dusts/ender_pearl"
+        },
+        {
+            "item": "mtetm:blood_emerald_dust"
+        },
+        {
+            "item": "mtetm:blood_emerald_dust"
+        },
+        {
+            "item": "mtetm:adamantium_dust"
+        },
+        {
+            "item": "mtetm:adamantium_dust"
+        },
+        {
+            "item": "mtetm:adamantium_dust"
+        }
+    ],
+        "result": {
+        "item": "mtetm:enderfused_adamantium_dust",
+        "count": 1
+    }
+}

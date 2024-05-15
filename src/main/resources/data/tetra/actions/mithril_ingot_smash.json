@@ -1,0 +1,14 @@
+[
+   {
+    "key":"smash_mithril_ingot_action",
+    "requirement":{
+      "items":[
+        "mtetm:mithril_ingot"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"minecraft:netherite"
+    },
+    "lootTable":"tetra:actions/smash_mithril_ingot"
+  }
+]

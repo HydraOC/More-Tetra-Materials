@@ -1,0 +1,14 @@
+[
+    {
+    "key":"smash_adamantium_ingot_action",
+    "requirement":{
+      "items":[
+        "mtetm:adamantium_ingot"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"mtetm:mithril"
+    },
+    "lootTable":"tetra:actions/smash_adamantium_ingot"
+  }
+]

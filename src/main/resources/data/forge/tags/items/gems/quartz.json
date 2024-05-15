@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:quartz",
+    {
+      "id": "ae2:certus_quartz_crystal",
+      "required": false
+    }
+  ]
+}

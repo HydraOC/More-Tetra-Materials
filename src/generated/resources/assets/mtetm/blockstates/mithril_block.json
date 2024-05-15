@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mtetm:block/mithril_block"
+    }
+  }
+}

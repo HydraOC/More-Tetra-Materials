@@ -1,0 +1,14 @@
+[
+  {
+    "key":"smash_enderfused_adamantium_ingot_action",
+    "requirement":{
+      "items":[
+        "mtetm:enderfused_adamantium_ingot"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"mtetm:adamantium"
+    },
+    "lootTable":"tetra:actions/smash_enderfused_adamantium_ingot"
+  }
+]

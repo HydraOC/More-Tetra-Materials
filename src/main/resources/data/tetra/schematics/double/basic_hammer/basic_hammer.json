@@ -1,0 +1,80 @@
+{
+    "replace": false,
+    "slots": [
+        "double/head_left",
+        "double/head_right"
+    ],
+    "keySuffixes": [
+        "_left",
+        "_right"
+    ],
+    "materialSlotCount": 1,
+    "glyph": {
+        "textureX": 64
+    },
+    "displayType": "major",
+    "applicableMaterials": [
+        "!mithril",
+        "!adamantium",
+        "!pandorium"
+    ],
+    "translation": {
+        "primaryAttributes": {
+            "generic.attack_damage": 2
+        },
+        "secondaryAttributes": {
+            "generic.attack_damage": 3,
+            "generic.attack_speed": -1
+        },
+        "tools": {
+            "hammer_dig": [
+                0,
+                2
+            ]
+        },
+        "durability": 2,
+        "integrity": -3,
+        "magicCapacity": 3
+    },
+    "outcomes": [
+        {
+            "material": {
+                "items": [
+                    "mtetm:mithril_ingot"
+                ],
+                "count": 2
+            },
+            "requiredTools": {
+                "hammer_dig": "tetra:maxed_forge_hammer"
+            },
+            "moduleKey": "double/basic_hammer",
+            "moduleVariant": "basic_hammer/mithril"
+        },
+        {
+            "material": {
+                "items": [
+                    "mtetm:adamantium_ingot"
+                ],
+                "count": 2
+            },
+            "requiredTools": {
+                "hammer_dig": "mtetm:mithril"
+            },
+            "moduleKey": "double/basic_hammer",
+            "moduleVariant": "basic_hammer/adamantium"
+        },
+        {
+            "material": {
+                "items": [
+                    "mtetm:pandorium_ingot"
+                ],
+                "count": 4
+            },
+            "requiredTools": {
+                "hammer_dig": "mtetm:adamantium"
+            },
+            "moduleKey": "double/basic_hammer",
+            "moduleVariant": "basic_hammer/pandorium"
+        }
+    ]
+}

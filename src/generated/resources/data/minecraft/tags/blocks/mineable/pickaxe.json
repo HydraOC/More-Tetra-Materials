@@ -1,0 +1,17 @@
+{
+  "values": [
+    "mtetm:mithril_ore",
+    "mtetm:deepslate_mithril_ore",
+    "mtetm:raw_mithril_block",
+    "mtetm:mithril_block",
+    "mtetm:adamantium_ore",
+    "mtetm:raw_adamantium_block",
+    "mtetm:adamantium_block",
+    "mtetm:blood_emerald_ore",
+    "mtetm:blood_emerald_block",
+    "mtetm:pandorium_ore",
+    "mtetm:raw_pandorium_block",
+    "mtetm:pandorium_block",
+    "mtetm:enderfused_adamantium_block"
+  ]
+}

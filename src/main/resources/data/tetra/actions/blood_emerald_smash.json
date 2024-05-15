@@ -1,0 +1,14 @@
+[
+    {
+    "key":"smash_blood_emerald_action",
+    "requirement":{
+      "items":[
+        "mtetm:blood_emerald"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"mtetm:mithril"
+    },
+    "lootTable":"tetra:actions/smash_blood_emerald"
+  }
+]

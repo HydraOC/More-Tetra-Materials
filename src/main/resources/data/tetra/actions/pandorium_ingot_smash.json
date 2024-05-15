@@ -1,0 +1,14 @@
+[
+   {
+    "key":"smash_pandorium_ingot_action",
+    "requirement":{
+      "items":[
+        "mtetm:pandorium_ingot"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"mtetm:adamantium"
+    },
+    "lootTable":"tetra:actions/smash_pandorium_ingot"
+  }
+]

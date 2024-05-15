@@ -1,0 +1,27 @@
+{
+    "key": "enderfused_adamantium",
+    "category": "metal",
+    "primary": 8.4,
+    "secondary": 4.3,
+    "tertiary": 5.2,
+    "durability": 6150,
+    "integrityCost": 2,
+    "integrityGain": 12,
+    "magicCapacity": 130,
+    "toolLevel": "mtetm:adamantium",
+    "toolEfficiency": 12,
+    "tints": {
+        "glyph": "2B535E",
+        "texture": "2B535E"
+    },
+    "textures": [
+        "heavy",
+        "metal"
+    ],
+    "material": {
+        "items": [ "mtetm:enderfused_adamantium_ingot" ]
+    },
+    "requiredTools": {
+        "hammer_dig": "mtetm:mithril"
+    }
+}
