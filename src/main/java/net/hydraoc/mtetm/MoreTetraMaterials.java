@@ -2,36 +2,25 @@ package net.hydraoc.mtetm;
 
 import com.mojang.logging.LogUtils;
 import net.hydraoc.mtetm.block.entity.ModBlockEntities;
-import net.hydraoc.mtetm.block.entity.NetheriteFurnaceBlockEntity;
 import net.hydraoc.mtetm.item.ModCreativeModeTab;
 import net.hydraoc.mtetm.item.ModItems;
 import net.hydraoc.mtetm.block.ModBlocks;
-import net.hydraoc.mtetm.item.ModToolTiers;
-import net.hydraoc.mtetm.screen.NetheriteFurnaceScreen;
-import net.hydraoc.mtetm.screen.ScreenTypes;
+import net.hydraoc.mtetm.menus.HellforgeScreen;
+import net.hydraoc.mtetm.menus.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.hydraoc.mtetm.worldgen.ModConfiguredFeatures;
-import net.hydraoc.mtetm.worldgen.ModPlacedFeatures;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(MoreTetraMaterials.MOD_ID)
 public class MoreTetraMaterials {
-    // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "mtetm";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
     // Very Important Comment
@@ -44,10 +33,10 @@ public class MoreTetraMaterials {
         modEventBus.addListener(this::commonSetup);
         ModCreativeModeTab.register(modEventBus);
 
-        ModBlockEntities.register(modEventBus);
-        ScreenTypes.register(modEventBus);
-
         MinecraftForge.EVENT_BUS.register(this);
+
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -55,10 +44,11 @@ public class MoreTetraMaterials {
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            MenuScreens.register(ModMenuTypes.HELLFORGE_MENU.get(), HellforgeScreen::new);
         }
     }
 }

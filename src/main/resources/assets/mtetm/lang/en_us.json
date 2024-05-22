@@ -79,6 +79,6 @@
   "tetra.material.socket_rose_quartz": "Rose Quartz socket",
   "tetra.material.socket_rose_quartz.prefix": "§dRose Quartz§r",
 
-  "block.mtetm.netherite_furnace": "Netherite Furnace",
-  "container.netherite_furnace": "Netherite Furnace"
+  "block.mtetm.hellforge": "Hellforge",
+  "container.hellforge": "Hellforge"
 }

@@ -12,11 +12,10 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MoreTetraMaterials.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<NetheriteFurnaceBlockEntity>> NETHERITE_FURNACE_BE =
-            BLOCK_ENTITIES.register("netherite_furnace_be", () ->
-                    BlockEntityType.Builder.of(NetheriteFurnaceBlockEntity::new,
-                            ModBlocks.NETHERITE_FURNACE.get()).build(null));
-
+    public static final RegistryObject<BlockEntityType<HellforgeBlockEntity>> HELLFORGE_BE =
+            BLOCK_ENTITIES.register("hellforge_be", () ->
+                    BlockEntityType.Builder.of(HellforgeBlockEntity::new,
+                            ModBlocks.HELLFORGE.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

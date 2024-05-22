@@ -1,19 +1,13 @@
 package net.hydraoc.mtetm.block;
 
-import net.hydraoc.mtetm.block.custom.NetheriteFurnaceBlock;
-import net.hydraoc.mtetm.item.ModCreativeModeTab;
 import net.hydraoc.mtetm.MoreTetraMaterials;
+import net.hydraoc.mtetm.block.custom.HellforgeBlock;
 import net.hydraoc.mtetm.item.ModItems;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -74,9 +68,8 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.GILDED_BLACKSTONE)
                     .strength(8,1200f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
 
-    public static final RegistryObject<Block> NETHERITE_FURNACE = registerBlock("netherite_furnace",
-            () -> new NetheriteFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.NETHERITE_BLOCK)
-                    .strength(8,1200f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> HELLFORGE = registerBlock("hellforge",
+            () -> new HellforgeBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

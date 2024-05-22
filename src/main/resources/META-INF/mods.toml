@@ -62,7 +62,7 @@ Adds more materials to the tetra mod that are post-netherite, and some compatibi
 # the modid of the dependency
 modId="tetra" #mandatory
 # Does this dependency have to exist - if not, ordering below must be specified
-mandatory=true #mandatory
+mandatory=false #mandatory
 # The version range of the dependency
 versionRange="[6.0.0,)" #mandatory
 # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
