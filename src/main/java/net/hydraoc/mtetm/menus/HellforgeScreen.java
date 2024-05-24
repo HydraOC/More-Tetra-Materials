@@ -24,6 +24,9 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
+    int imageWidth = 205;
+    int imageHeight = 166;
+
     @Override
     protected void init() {
         super.init();
@@ -36,17 +39,17 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+        int x = (width - 176) / 2;
+        int y = (height - 166) / 2;
 
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
-        renderProgressArrow(guiGraphics, x, y);
+        renderFuelBar(guiGraphics, x, y);
     }
 
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+    private void renderFuelBar(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 85, y + 30, 176, 0, 8, menu.getScaledProgress());
+            guiGraphics.blit(TEXTURE, x+181, y+34, 23, 166, 12, menu.getScaledProgress());
         }
     }
 

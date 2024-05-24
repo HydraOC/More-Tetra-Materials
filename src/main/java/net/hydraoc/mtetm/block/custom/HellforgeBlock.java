@@ -5,6 +5,7 @@ import net.hydraoc.mtetm.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +40,7 @@ public class HellforgeBlock extends AbstractFurnaceBlock {
     public void openContainer(Level level, BlockPos pos, Player player) {
         BlockEntity $$3 = level.getBlockEntity(pos);
         if ($$3 instanceof HellforgeBlockEntity) {
-            player.openMenu((MenuProvider)$$3);
+            NetworkHooks.openScreen((ServerPlayer) player, (MenuProvider)$$3, pos);
         }
     }
 

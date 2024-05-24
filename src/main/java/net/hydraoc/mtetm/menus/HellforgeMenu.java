@@ -18,12 +18,12 @@ public class HellforgeMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public HellforgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(3));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
     public HellforgeMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.HELLFORGE_MENU.get(), pContainerId);
-        checkContainerSize(inv, 3);
+        checkContainerSize(inv, 2);
         blockEntity = ((HellforgeBlockEntity) entity);
         this.level = inv.player.level();
         this.data = data;
@@ -32,9 +32,9 @@ public class HellforgeMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 53, 17)); //Input Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 80, 53)); //Fuel Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 2, 107, 17)); //Output Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 56, 35)); //Input Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 2, 116, 35)); //Output Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 1, 181, 120)); //Fuel Slot
         });
 
         addDataSlots(data);
@@ -47,7 +47,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
     public int getScaledProgress() {
         int progress = this.data.get(0);
         int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
+        int progressArrowSize = 22; // This is the height in pixels of your arrow
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
