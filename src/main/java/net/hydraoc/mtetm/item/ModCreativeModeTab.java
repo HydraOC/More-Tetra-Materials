@@ -52,7 +52,6 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModBlocks.BLOOD_EMERALD_BLOCK.get());
 
                         pOutput.accept(ModBlocks.HELLFORGE.get());
-                        pOutput.accept(ModItems.THUNDER_CRYSTAL.get());
                     })
                     .build());
 

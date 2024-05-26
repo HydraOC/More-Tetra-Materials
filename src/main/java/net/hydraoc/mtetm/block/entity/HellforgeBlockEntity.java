@@ -8,15 +8,14 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class HellforgeBlockEntity extends AbstractFurnaceBlockEntity {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3);
+public class HellforgeBlockEntity extends AbstractHellforgeBE {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(2);
 
-    public HellforgeBlockEntity(BlockPos p_155545_, BlockState p_155546_) {
-        super(ModBlockEntities.HELLFORGE_BE.get(), p_155545_, p_155546_, RecipeType.SMELTING);
+    public HellforgeBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.HELLFORGE_BE.get(), pos, state, RecipeType.SMELTING);
     }
 
     protected Component getDefaultName() {

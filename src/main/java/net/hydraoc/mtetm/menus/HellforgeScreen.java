@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import net.minecraft.world.inventory.BlastFurnaceMenu;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -24,8 +25,8 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
-    int imageWidth = 205;
-    int imageHeight = 166;
+    int imageWidth = 172;
+    int imageHeight = 174;
 
     @Override
     protected void init() {
@@ -39,18 +40,22 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - 176) / 2;
-        int y = (height - 166) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-
-        renderFuelBar(guiGraphics, x, y);
     }
 
     private void renderFuelBar(GuiGraphics guiGraphics, int x, int y) {
-        if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x+181, y+34, 23, 166, 12, menu.getScaledProgress());
+        if(menu.isLit()) {
+            int fuel = menu.getLitProgress();
+            guiGraphics.blit(TEXTURE, x, y+50-fuel, 23, 50-fuel, 13, fuel);
         }
+    }
+
+    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+        int progress = (this.menu).getBurnProgress();
+        guiGraphics.blit(TEXTURE, x, y, 0, 166, progress, 16);
     }
 
     @Override

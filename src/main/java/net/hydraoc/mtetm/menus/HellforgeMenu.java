@@ -18,12 +18,12 @@ public class HellforgeMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public HellforgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
     public HellforgeMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.HELLFORGE_MENU.get(), pContainerId);
-        checkContainerSize(inv, 2);
+        checkContainerSize(inv, 5);
         blockEntity = ((HellforgeBlockEntity) entity);
         this.level = inv.player.level();
         this.data = data;
@@ -32,9 +32,9 @@ public class HellforgeMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 56, 35)); //Input Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 2, 116, 35)); //Output Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 181, 120)); //Fuel Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 31, 30)); //Input Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 1, 144, 56)); //Fuel Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 2, 91,30)); //Output Slot
         });
 
         addDataSlots(data);
@@ -44,12 +44,26 @@ public class HellforgeMenu extends AbstractContainerMenu {
         return data.get(0) > 0;
     }
 
-    public int getScaledProgress() {
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 22; // This is the height in pixels of your arrow
+    public boolean hasFuel(){
+        return data.get(1) > 0;
+    }
 
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    public int getBurnProgress() {
+        int i = this.data.get(2);
+        int j = this.data.get(3);
+        return j != 0 && i != 0 ? i * 22 / j : 0;
+    }
+
+    public int getLitProgress() {
+        int i = this.data.get(1);
+        if (i == 0) {
+            i = 200;
+        }
+        return this.data.get(0) * 50 / i;
+    }
+
+    public boolean isLit() {
+        return this.data.get(0) > 0;
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

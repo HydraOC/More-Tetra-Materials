@@ -22,7 +22,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class HellforgeBlock extends AbstractFurnaceBlock {
+public class HellforgeBlock extends AbstractCFB {
 
     public HellforgeBlock(BlockBehaviour.Properties p_53627_) {
         super(p_53627_);
@@ -47,7 +47,7 @@ public class HellforgeBlock extends AbstractFurnaceBlock {
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randSource) {
         if ((Boolean)state.getValue(LIT)) {
             double $$4 = (double)pos.getX() + 0.5;
-            double $$5 = (double)pos.getY();
+            double $$5 = (double)pos.getY()+0.5;
             double $$6 = (double)pos.getZ() + 0.5;
             if (randSource.nextDouble() < 0.1) {
                 level.playLocalSound($$4, $$5, $$6, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
@@ -58,9 +58,8 @@ public class HellforgeBlock extends AbstractFurnaceBlock {
             double $$9 = 0.52;
             double $$10 = randSource.nextDouble() * 0.6 - 0.3;
             double $$11 = $$8 == Direction.Axis.X ? (double)$$7.getStepX() * 0.52 : $$10;
-            double $$12 = randSource.nextDouble() * 6.0 / 16.0;
+            double $$12 = randSource.nextDouble() * 6.0 / 10.0;
             double $$13 = $$8 == Direction.Axis.Z ? (double)$$7.getStepZ() * 0.52 : $$10;
-            level.addParticle(ParticleTypes.SMOKE, $$4 + $$11, $$5 + $$12, $$6 + $$13, 0.0, 0.0, 0.0);
             level.addParticle(ParticleTypes.FLAME, $$4 + $$11, $$5 + $$12, $$6 + $$13, 0.0, 0.0, 0.0);
         }
     }

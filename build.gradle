@@ -116,13 +116,15 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    // Put repositories for dependencies here
-    // ForgeGradle automatically adds the Forge maven and Maven Central for you
-
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-    // flatDir {
-    //     dir 'libs'
-    // }
+    maven {
+        name = "cursemaven"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven { url = 'https://maven.blamejared.com/' }
+    mavenCentral()
 }
 
 dependencies {
@@ -130,6 +132,8 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.20'
+    implementation fg.deobf("curse.maven:tetra-289712:${tetra_version}")
+    implementation fg.deobf("curse.maven:tetra-351914:${mutil_version}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -173,7 +177,6 @@ publishing {
     }
     repositories {
         maven {url "file://${project.projectDir}/mcmodsrepo"}
-        maven {url = 'https://maven.blamejared.com/'}
     }
 }
 

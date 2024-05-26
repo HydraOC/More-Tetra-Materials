@@ -81,8 +81,8 @@ public class ModItems {
     //public static final RegistryObject<Item> ADAMANTIUM_PICKAXE = ITEMS.register("adamantium_pickaxe",
             //() -> new PickaxeItem(ModToolTiers.ADAMANTIUM, 1, 1, new Item.Properties()));
 
-    public static final RegistryObject<Item> THUNDER_CRYSTAL = ITEMS.register("thunder_crystal",
-            () -> new Item(new Item.Properties()));
+    //public static final RegistryObject<Item> THUNDER_CRYSTAL = ITEMS.register("thunder_crystal",
+            //() -> new Item(new Item.Properties()));
 
 
 
