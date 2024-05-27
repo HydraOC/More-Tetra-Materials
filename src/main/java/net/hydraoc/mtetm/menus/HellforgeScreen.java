@@ -18,6 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
+    //Stores the texture location
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(MoreTetraMaterials.MOD_ID, "textures/gui/hellforge_gui.png");
 
@@ -25,8 +26,9 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
-    int imageWidth = 172;
-    int imageHeight = 174;
+    //new image width and height variable declaration
+    int imageWidth = 171;
+    int imageHeight = 173;
 
     @Override
     protected void init() {
@@ -35,27 +37,42 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         this.titleLabelY = 10000;
     }
 
+    //Main renderBg method for the class, contains calls to the rest of the rendering methods that require custom logic
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+        int x = (width - 176) / 2;
+        int y = (height - 166) / 2;
 
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        renderFuelBar(guiGraphics,x+146,y+50);
+        renderProgressArrow(guiGraphics,x+54,y+29);
+        renderColorBars(guiGraphics,x,y);
     }
 
+    //Renders the fuel bar
     private void renderFuelBar(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isLit()) {
             int fuel = menu.getLitProgress();
-            guiGraphics.blit(TEXTURE, x, y+50-fuel, 23, 50-fuel, 13, fuel);
+            guiGraphics.blit(TEXTURE, x, y-fuel, 172, 50-fuel, 13, fuel);
         }
     }
 
+    //Renders the crafting progress arrow
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         int progress = (this.menu).getBurnProgress();
-        guiGraphics.blit(TEXTURE, x, y, 0, 166, progress, 16);
+        guiGraphics.blit(TEXTURE, x, y, 0, 174, progress, 16);
+    }
+
+    //Renders the color bars for the menu (Like 7 pixels, but needed its own handler)
+    private void renderColorBars(GuiGraphics guiGraphics, int x , int y){
+        int fuel = menu.getLitProgress();
+        if(menu.isLit()) {
+            guiGraphics.blit(TEXTURE, x + 148, y + 7, 171, 7, 1, 3);
+            guiGraphics.blit(TEXTURE, x + 135, y + 37, 171, 11, 5, 1);
+        }
     }
 
     @Override

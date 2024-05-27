@@ -7,6 +7,7 @@ import net.hydraoc.mtetm.item.ModItems;
 import net.hydraoc.mtetm.block.ModBlocks;
 import net.hydraoc.mtetm.menus.HellforgeScreen;
 import net.hydraoc.mtetm.menus.ModMenuTypes;
+import net.hydraoc.mtetm.recipe.ModRecipes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,6 +38,8 @@ public class MoreTetraMaterials {
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModRecipes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

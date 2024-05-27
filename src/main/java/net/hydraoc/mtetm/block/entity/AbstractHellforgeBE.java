@@ -21,6 +21,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -54,6 +56,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import se.mickelus.tetra.items.cell.ThermalCellItem;
 
 public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
     protected static final int SLOT_INPUT = 0;
@@ -72,7 +75,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
     public NonNullList<ItemStack> items;
     public int litTime;
-    public int litDuration = 40000;
+    public int litDuration = 51200;
     public int cookingProgress;
     public int cookingTotalTime;
     protected final ContainerData dataAccess;
@@ -97,7 +100,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             public void set(int p_58433_, int p_58434_) {
                 switch (p_58433_) {
                     case 0 -> AbstractHellforgeBE.this.litTime = p_58434_;
-                    case 1 -> AbstractHellforgeBE.this.litDuration = 40000;
+                    case 1 -> AbstractHellforgeBE.this.litDuration = 51200;
                     case 2 -> AbstractHellforgeBE.this.cookingProgress = p_58434_;
                     case 3 -> AbstractHellforgeBE.this.cookingTotalTime = p_58434_;
                 }
@@ -118,65 +121,8 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     @Deprecated
     public static Map<Item, Integer> getFuel() {
         Map<Item, Integer> map = Maps.newLinkedHashMap();
-        add(map, (ItemLike)Items.LAVA_BUCKET, 20000);
-        add(map, (ItemLike)Blocks.COAL_BLOCK, 16000);
-        add(map, (ItemLike)Items.BLAZE_ROD, 2400);
-        add(map, (ItemLike)Items.COAL, 1600);
-        add(map, (ItemLike)Items.CHARCOAL, 1600);
-        add(map, (TagKey)ItemTags.LOGS, 300);
-        add(map, (TagKey)ItemTags.BAMBOO_BLOCKS, 300);
-        add(map, (TagKey)ItemTags.PLANKS, 300);
-        add(map, (ItemLike)Blocks.BAMBOO_MOSAIC, 300);
-        add(map, (TagKey)ItemTags.WOODEN_STAIRS, 300);
-        add(map, (ItemLike)Blocks.BAMBOO_MOSAIC_STAIRS, 300);
-        add(map, (TagKey)ItemTags.WOODEN_SLABS, 150);
-        add(map, (ItemLike)Blocks.BAMBOO_MOSAIC_SLAB, 150);
-        add(map, (TagKey)ItemTags.WOODEN_TRAPDOORS, 300);
-        add(map, (TagKey)ItemTags.WOODEN_PRESSURE_PLATES, 300);
-        add(map, (TagKey)ItemTags.WOODEN_FENCES, 300);
-        add(map, (TagKey)ItemTags.FENCE_GATES, 300);
-        add(map, (ItemLike)Blocks.NOTE_BLOCK, 300);
-        add(map, (ItemLike)Blocks.BOOKSHELF, 300);
-        add(map, (ItemLike)Blocks.CHISELED_BOOKSHELF, 300);
-        add(map, (ItemLike)Blocks.LECTERN, 300);
-        add(map, (ItemLike)Blocks.JUKEBOX, 300);
-        add(map, (ItemLike)Blocks.CHEST, 300);
-        add(map, (ItemLike)Blocks.TRAPPED_CHEST, 300);
-        add(map, (ItemLike)Blocks.CRAFTING_TABLE, 300);
-        add(map, (ItemLike)Blocks.DAYLIGHT_DETECTOR, 300);
-        add(map, (TagKey)ItemTags.BANNERS, 300);
-        add(map, (ItemLike)Items.BOW, 300);
-        add(map, (ItemLike)Items.FISHING_ROD, 300);
-        add(map, (ItemLike)Blocks.LADDER, 300);
-        add(map, (TagKey)ItemTags.SIGNS, 200);
-        add(map, (TagKey)ItemTags.HANGING_SIGNS, 800);
-        add(map, (ItemLike)Items.WOODEN_SHOVEL, 200);
-        add(map, (ItemLike)Items.WOODEN_SWORD, 200);
-        add(map, (ItemLike)Items.WOODEN_HOE, 200);
-        add(map, (ItemLike)Items.WOODEN_AXE, 200);
-        add(map, (ItemLike)Items.WOODEN_PICKAXE, 200);
-        add(map, (TagKey)ItemTags.WOODEN_DOORS, 200);
-        add(map, (TagKey)ItemTags.BOATS, 1200);
-        add(map, (TagKey)ItemTags.WOOL, 100);
-        add(map, (TagKey)ItemTags.WOODEN_BUTTONS, 100);
-        add(map, (ItemLike)Items.STICK, 100);
-        add(map, (TagKey)ItemTags.SAPLINGS, 100);
-        add(map, (ItemLike)Items.BOWL, 100);
-        add(map, (TagKey)ItemTags.WOOL_CARPETS, 67);
-        add(map, (ItemLike)Blocks.DRIED_KELP_BLOCK, 4001);
-        add(map, (ItemLike)Items.CROSSBOW, 300);
-        add(map, (ItemLike)Blocks.BAMBOO, 50);
-        add(map, (ItemLike)Blocks.DEAD_BUSH, 100);
-        add(map, (ItemLike)Blocks.SCAFFOLDING, 50);
-        add(map, (ItemLike)Blocks.LOOM, 300);
-        add(map, (ItemLike)Blocks.BARREL, 300);
-        add(map, (ItemLike)Blocks.CARTOGRAPHY_TABLE, 300);
-        add(map, (ItemLike)Blocks.FLETCHING_TABLE, 300);
-        add(map, (ItemLike)Blocks.SMITHING_TABLE, 300);
-        add(map, (ItemLike)Blocks.COMPOSTER, 300);
-        add(map, (ItemLike)Blocks.AZALEA, 100);
-        add(map, (ItemLike)Blocks.FLOWERING_AZALEA, 100);
-        add(map, (ItemLike)Blocks.MANGROVE_ROOTS, 300);
+        ItemStack cell = new ItemStack(ThermalCellItem.instance.get());
+        add(map, ThermalCellItem.instance.get(), ThermalCellItem.getCharge(cell)*200);
         return map;
     }
 
@@ -219,7 +165,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         this.litTime = p_155025_.getInt("BurnTime");
         this.cookingProgress = p_155025_.getInt("CookTime");
         this.cookingTotalTime = p_155025_.getInt("CookTimeTotal");
-        this.litDuration = 40000;
+        this.litDuration = 51200;
         CompoundTag compoundtag = p_155025_.getCompound("RecipesUsed");
         Iterator var3 = compoundtag.getAllKeys().iterator();
 
@@ -243,6 +189,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         p_187452_.put("RecipesUsed", compoundtag);
     }
 
+    //Moved the fuel ticker outside of the serverTick method so I could tinker with it.
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
         if (blockEntity.cookingProgress > 0) {
             --blockEntity.litTime;
@@ -251,74 +198,74 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         }
     }
 
-    public static void serverTick(Level p_155014_, BlockPos p_155015_, BlockState p_155016_, AbstractHellforgeBE p_155017_) {
-        boolean flag = p_155017_.isLit();
+    public static void serverTick(Level level, BlockPos pos, BlockState blockState, AbstractHellforgeBE blockEntity) {
+        boolean flag = blockEntity.isLit();
         boolean flag1 = false;
-        fuelTicker(p_155017_);
+        fuelTicker(blockEntity);
 
-        ItemStack itemstack = (ItemStack)p_155017_.items.get(1);
-        boolean flag2 = !((ItemStack)p_155017_.items.get(0)).isEmpty();
+        ItemStack itemstack = (ItemStack)blockEntity.items.get(1);
+        boolean flag2 = !((ItemStack)blockEntity.items.get(0)).isEmpty();
         boolean flag3 = !itemstack.isEmpty();
-        if (!p_155017_.isLit() && (!flag3 || !flag2)) {
-            if (!p_155017_.isLit() && p_155017_.cookingProgress > 0) {
-                p_155017_.cookingProgress = Mth.clamp(p_155017_.cookingProgress - 2, 0, p_155017_.cookingTotalTime);
+        if (!blockEntity.isLit() && (!flag3 || !flag2)) {
+            if (!blockEntity.isLit() && blockEntity.cookingProgress > 0) {
+                blockEntity.cookingProgress = Mth.clamp(blockEntity.cookingProgress - 2, 0, blockEntity.cookingTotalTime);
             }
         } else {
             Recipe recipe;
             if (flag2) {
-                recipe = (Recipe)p_155017_.quickCheck.getRecipeFor(p_155017_, p_155014_).orElse(null);
+                recipe = (Recipe)blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null);
             } else {
                 recipe = null;
             }
 
-            int i = p_155017_.getMaxStackSize();
-            if ((p_155017_.litTime < p_155017_.litDuration-p_155017_.getBurnDuration(itemstack))&& p_155017_.canBurn(p_155014_.registryAccess(), recipe, p_155017_.items, i)) {
-                    p_155017_.litTime = p_155017_.litTime + p_155017_.getBurnDuration(itemstack);
-                    p_155017_.litDuration = 40000;
-                if (p_155017_.isLit()) {
+            int i = blockEntity.getMaxStackSize();
+            if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i) && ThermalCellItem.getCharge(itemstack) != 1){
+                    blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*200;
+                    blockEntity.litDuration = 51200;
+                if (blockEntity.isLit()) {
                     flag1 = true;
                     if (itemstack.hasCraftingRemainingItem()) {
-                        p_155017_.items.set(1, itemstack.getCraftingRemainingItem());
+                        blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
                     } else if (flag3) {
                         Item item = itemstack.getItem();
-                        itemstack.shrink(1);
+                        ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack));
                         if (itemstack.isEmpty()) {
-                            p_155017_.items.set(1, itemstack.getCraftingRemainingItem());
+                            blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
                         }
                     }
                 }
             }
 
-            if (p_155017_.isLit() && p_155017_.canBurn(p_155014_.registryAccess(), recipe, p_155017_.items, i)) {
-                ++p_155017_.cookingProgress;
-                if (p_155017_.cookingProgress == p_155017_.cookingTotalTime) {
-                    p_155017_.cookingProgress = 0;
-                    p_155017_.cookingTotalTime = getTotalCookTime(p_155014_, p_155017_);
-                    if (p_155017_.burn(p_155014_.registryAccess(), recipe, p_155017_.items, i)) {
-                        p_155017_.setRecipeUsed(recipe);
+            if (blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
+                ++blockEntity.cookingProgress;
+                if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
+                    blockEntity.cookingProgress = 0;
+                    blockEntity.cookingTotalTime = getTotalCookTime(level, blockEntity);
+                    if (blockEntity.burn(level.registryAccess(), recipe, blockEntity.items, i)) {
+                        blockEntity.setRecipeUsed(recipe);
                     }
 
                     flag1 = true;
                 }
             } else {
-                p_155017_.cookingProgress = 0;
+                blockEntity.cookingProgress = 0;
             }
         }
 
-        if (flag != p_155017_.isLit()) {
+        if (flag != blockEntity.isLit()) {
             flag1 = true;
-            p_155016_ = (BlockState)p_155016_.setValue(AbstractFurnaceBlock.LIT, p_155017_.isLit());
-            p_155014_.setBlock(p_155015_, p_155016_, 3);
+            blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
+            level.setBlock(pos, blockState, 3);
         }
 
         if (flag1) {
-            setChanged(p_155014_, p_155015_, p_155016_);
+            setChanged(level, pos, blockState);
         }
 
     }
 
     public boolean canBurn(RegistryAccess p_266924_, @Nullable Recipe<AbstractHellforgeBE> p_155006_, NonNullList<ItemStack> p_155007_, int p_155008_) {
-        if (!((ItemStack)p_155007_.get(0)).isEmpty() && p_155006_ != null) {
+        if (!((ItemStack)p_155007_.get(0)).isEmpty()) {
             ItemStack itemstack = p_155006_.assemble(this, p_266924_);
             if (itemstack.isEmpty()) {
                 return false;
@@ -350,7 +297,11 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
                 itemstack2.grow(itemstack1.getCount());
             }
 
-            itemstack.shrink(1);
+            if(itemstack.getItem() instanceof ThermalCellItem) {
+                ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack)-1);
+            }else{
+                itemstack.shrink(1);
+            }
             return true;
         } else {
             return false;
@@ -362,7 +313,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             return 0;
         } else {
             Item item = itemStack.getItem();
-            return ForgeHooks.getBurnTime(itemStack, this.recipeType);
+            return ThermalCellItem.getCharge(itemStack)*10000;
         }
     }
 
@@ -371,7 +322,8 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     }
 
     public static boolean isFuel(ItemStack itemStack) {
-        return ForgeHooks.getBurnTime(itemStack, (RecipeType)null) > 0;
+        ItemStack cell = new ItemStack(ThermalCellItem.instance.get());
+        return ThermalCellItem.getCharge(cell)*10000 > 0;
     }
 
     public int[] getSlotsForFace(Direction dir) {
@@ -449,10 +401,10 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         if (p_58389_ == 2) {
             return false;
         } else if (p_58389_ != 1) {
-            return true;
+            return !(p_58390_.getItem() instanceof ThermalCellItem);
         } else {
             ItemStack itemstack = (ItemStack)this.items.get(1);
-            return ForgeHooks.getBurnTime(p_58390_, this.recipeType) > 0 || p_58390_.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
+            return p_58390_.getItem() instanceof ThermalCellItem;
         }
     }
 
@@ -544,7 +496,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         for(int x = 0; x < this.handlers.length; ++x) {
             this.handlers[x].invalidate();
         }
-
     }
 
     public void reviveCaps() {
