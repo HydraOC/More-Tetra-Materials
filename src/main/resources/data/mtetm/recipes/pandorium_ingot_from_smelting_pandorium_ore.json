@@ -1,0 +1,13 @@
+{
+  "type": "mtetm:hell_smelting",
+  "ingredient": [
+    {
+      "item": "mtetm:pandorium_ore"
+    }
+  ],
+  "result": {
+    "item": "mtetm:pandorium_ingot"
+  },
+  "experience": 2,
+  "cookingtime": 200
+}

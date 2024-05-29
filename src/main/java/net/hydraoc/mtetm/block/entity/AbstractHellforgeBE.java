@@ -157,10 +157,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     }
 
-    public boolean isLit() {
-        return this.litTime > 0;
-    }
-
     public void load(CompoundTag p_155025_) {
         super.load(p_155025_);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
@@ -192,6 +188,14 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         p_187452_.put("RecipesUsed", compoundtag);
     }
 
+    public boolean isLit(Level level, AbstractHellforgeBE blockEntity) {
+        if(litTime > 0 && !blockEntity.getItem(0).isEmpty() &&
+                ((Recipe)blockEntity.primaryQuickCheck.getRecipeFor(blockEntity, level).orElse(null) != null || (Recipe)blockEntity.secondaryQuickCheck.getRecipeFor(blockEntity, level).orElse(null) != null)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     //Moved the fuel ticker outside of the serverTick method so I could tinker with it.
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
         if (blockEntity.cookingProgress > 0) {
@@ -200,15 +204,29 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState blockState, AbstractHellforgeBE blockEntity) {
-        boolean flag = blockEntity.isLit();
+        boolean flag = blockEntity.isLit(level, blockEntity);
         boolean flag1 = false;
         fuelTicker(blockEntity);
 
         ItemStack itemstack = (ItemStack)blockEntity.items.get(1);
         boolean flag2 = !((ItemStack)blockEntity.items.get(0)).isEmpty();
         boolean flag3 = !itemstack.isEmpty();
-        if (!blockEntity.isLit() && (!flag3 || !flag2)) {
-            if (!blockEntity.isLit() && blockEntity.cookingProgress > 0) {
+
+        if (blockEntity.isLit(level, blockEntity)) {
+            flag1 = true;
+            blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, flag1);
+            level.setBlock(pos, blockState, 3);
+            setChanged(level, pos, blockState);
+        }
+
+        if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && ThermalCellItem.getCharge(itemstack) != 1){
+            blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*200;
+            blockEntity.litDuration = 51200;
+            ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack));
+        }
+
+        if (!blockEntity.isLit(level, blockEntity) && (!flag3 || !flag2)) {
+            if (!blockEntity.isLit(level, blockEntity) && blockEntity.cookingProgress > 0) {
                 blockEntity.cookingProgress = Mth.clamp(blockEntity.cookingProgress - 2, 0, blockEntity.cookingTotalTime);
             }
         } else {
@@ -223,24 +241,8 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             }
 
             int i = blockEntity.getMaxStackSize();
-            if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && ThermalCellItem.getCharge(itemstack) != 1){
-                    blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*200;
-                    blockEntity.litDuration = 51200;
-                if (blockEntity.isLit()) {
-                    flag1 = true;
-                    if (itemstack.hasCraftingRemainingItem()) {
-                        blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
-                    } else if (flag3) {
-                        Item item = itemstack.getItem();
-                        ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack));
-                        if (itemstack.isEmpty()) {
-                            blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
-                        }
-                    }
-                }
-            }
 
-            if (blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
+            if (blockEntity.isLit(level, blockEntity) && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
                 ++blockEntity.cookingProgress;
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
                     blockEntity.cookingProgress = 0;
@@ -248,22 +250,11 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
                     if (blockEntity.burn(level.registryAccess(), recipe, blockEntity.items, i)) {
                         blockEntity.setRecipeUsed(recipe);
                     }
-
                     flag1 = true;
                 }
             } else {
                 blockEntity.cookingProgress = 0;
             }
-        }
-
-        if (flag != blockEntity.isLit()) {
-            flag1 = true;
-            blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit());
-            level.setBlock(pos, blockState, 3);
-        }
-
-        if (flag1) {
-            setChanged(level, pos, blockState);
         }
 
     }

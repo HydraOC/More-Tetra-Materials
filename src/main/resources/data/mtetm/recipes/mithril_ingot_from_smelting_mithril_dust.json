@@ -1,0 +1,13 @@
+{
+  "type": "mtetm:hell_smelting",
+  "ingredient": [
+    {
+      "item": "mtetm:raw_mithril"
+    }
+  ],
+  "result": {
+    "item": "mtetm:mithril_ingot"
+  },
+  "experience": 1,
+  "cookingtime": 200
+}

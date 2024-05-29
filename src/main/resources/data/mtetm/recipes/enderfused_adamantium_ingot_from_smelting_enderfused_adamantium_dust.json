@@ -1,0 +1,13 @@
+{
+  "type": "mtetm:hell_smelting",
+  "ingredient": [
+    {
+      "item": "mtetm:enderfused_adamantium_dust"
+    }
+  ],
+  "result": {
+    "item": "mtetm:enderfused_adamantium_ingot"
+  },
+  "experience": 3,
+  "cookingtime": 200
+}

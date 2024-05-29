@@ -2,12 +2,12 @@
   "type": "mtetm:hell_smelting",
   "ingredient": [
     {
-      "item": "mtetm:raw_mithril"
+      "item": "mtetm:adamantium_dust"
     }
   ],
   "result": {
-    "item": "mtetm:mithril_ingot"
+    "item": "mtetm:adamantium_ingot"
   },
-  "experience": 2,
+  "experience": 2.5,
   "cookingtime": 200
 }

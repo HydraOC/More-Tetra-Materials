@@ -1,0 +1,13 @@
+{
+  "type": "mtetm:hell_smelting",
+  "ingredient": [
+    {
+      "item": "mtetm:adamantium_ore"
+    }
+  ],
+  "result": {
+    "item": "mtetm:adamantium_ingot"
+  },
+  "experience": 2.5,
+  "cookingtime": 200
+}
