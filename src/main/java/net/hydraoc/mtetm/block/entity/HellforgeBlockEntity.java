@@ -1,6 +1,7 @@
 package net.hydraoc.mtetm.block.entity;
 
 import net.hydraoc.mtetm.menus.HellforgeMenu;
+import net.hydraoc.mtetm.recipe.HellSmeltingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
@@ -15,7 +16,7 @@ public class HellforgeBlockEntity extends AbstractHellforgeBE {
     private final ItemStackHandler itemHandler = new ItemStackHandler(2);
 
     public HellforgeBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.HELLFORGE_BE.get(), pos, state, RecipeType.SMELTING);
+        super(ModBlockEntities.HELLFORGE_BE.get(), pos, state, HellSmeltingRecipe.Type.INSTANCE, RecipeType.BLASTING);
     }
 
     protected Component getDefaultName() {

@@ -21,8 +21,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -45,19 +43,20 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+
+import net.hydraoc.mtetm.recipe.HellSmeltingRecipe;
 import se.mickelus.tetra.items.cell.ThermalCellItem;
 
+//This code is edited from the AbstractFurnaceBlockEntity code from vanilla.
 public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
     protected static final int SLOT_INPUT = 0;
     protected static final int SLOT_FUEL = 1;
@@ -72,7 +71,8 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     public static final int NUM_DATA_VALUES = 4;
     public static final int BURN_TIME_STANDARD = 200;
     public static final int BURN_COOL_SPEED = 2;
-    private final RecipeType<? extends AbstractCookingRecipe> recipeType;
+    private final RecipeType<? extends HellSmeltingRecipe> primaryRecipeType;
+    private final RecipeType<? extends AbstractCookingRecipe> secondRecipeType;
     public NonNullList<ItemStack> items;
     public int litTime;
     public int litDuration = 51200;
@@ -80,10 +80,11 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     public int cookingTotalTime;
     protected final ContainerData dataAccess;
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed;
-    public final RecipeManager.CachedCheck<Container, ? extends AbstractCookingRecipe> quickCheck;
+    public final RecipeManager.CachedCheck<Container, ? extends HellSmeltingRecipe> primaryQuickCheck;
+    public final RecipeManager.CachedCheck<Container, ? extends AbstractCookingRecipe> secondaryQuickCheck;
     LazyOptional<? extends IItemHandler>[] handlers;
 
-    protected AbstractHellforgeBE(BlockEntityType<?> p_154991_, BlockPos p_154992_, BlockState p_154993_, RecipeType<? extends AbstractCookingRecipe> p_154994_) {
+    protected AbstractHellforgeBE(BlockEntityType<?> p_154991_, BlockPos p_154992_, BlockState p_154993_, RecipeType<? extends HellSmeltingRecipe> p_154994_, RecipeType<? extends AbstractCookingRecipe> recipeType2) {
         super(p_154991_, p_154992_, p_154993_);
         this.items = NonNullList.withSize(3, ItemStack.EMPTY);
         this.dataAccess = new ContainerData() {
@@ -113,8 +114,10 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         };
         this.recipesUsed = new Object2IntOpenHashMap();
         this.handlers = SidedInvWrapper.create(this, new Direction[]{Direction.UP, Direction.DOWN, Direction.NORTH});
-        this.quickCheck = RecipeManager.createCheck(p_154994_);
-        this.recipeType = p_154994_;
+        this.primaryQuickCheck = RecipeManager.createCheck(p_154994_);
+        this.secondaryQuickCheck = RecipeManager.createCheck(recipeType2);
+        this.primaryRecipeType = p_154994_;
+        this.secondRecipeType = recipeType2;
     }
 
     /** @deprecated */
@@ -193,8 +196,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
         if (blockEntity.cookingProgress > 0) {
             --blockEntity.litTime;
-        }else{
-
         }
     }
 
@@ -213,13 +214,16 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         } else {
             Recipe recipe;
             if (flag2) {
-                recipe = (Recipe)blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null);
+                recipe = (Recipe)blockEntity.primaryQuickCheck.getRecipeFor(blockEntity, level).orElse(null);
+                if(recipe == null){
+                    recipe = (Recipe)blockEntity.secondaryQuickCheck.getRecipeFor(blockEntity, level).orElse(null);
+                }
             } else {
                 recipe = null;
             }
 
             int i = blockEntity.getMaxStackSize();
-            if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i) && ThermalCellItem.getCharge(itemstack) != 1){
+            if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && ThermalCellItem.getCharge(itemstack) != 1){
                     blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*200;
                     blockEntity.litDuration = 51200;
                 if (blockEntity.isLit()) {
@@ -264,13 +268,16 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     }
 
-    public boolean canBurn(RegistryAccess p_266924_, @Nullable Recipe<AbstractHellforgeBE> p_155006_, NonNullList<ItemStack> p_155007_, int p_155008_) {
-        if (!((ItemStack)p_155007_.get(0)).isEmpty()) {
-            ItemStack itemstack = p_155006_.assemble(this, p_266924_);
+    public boolean canBurn(RegistryAccess p_266924_, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> itemStacks, int p_155008_) {
+        if (!((ItemStack)itemStacks.get(0)).isEmpty()) {
+            if(recipe == null){
+                return false;
+            }
+            ItemStack itemstack = recipe.assemble(this, p_266924_);
             if (itemstack.isEmpty()) {
                 return false;
             } else {
-                ItemStack itemstack1 = (ItemStack)p_155007_.get(2);
+                ItemStack itemstack1 = (ItemStack)itemStacks.get(2);
                 if (itemstack1.isEmpty()) {
                     return true;
                 } else if (!ItemStack.isSameItem(itemstack1, itemstack)) {
@@ -318,7 +325,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     }
 
     public static int getTotalCookTime(Level level, AbstractHellforgeBE blockEntity) {
-        return (Integer)blockEntity.quickCheck.getRecipeFor(blockEntity, level).map(AbstractCookingRecipe::getCookingTime).orElse(200);
+        return (Integer)blockEntity.primaryQuickCheck.getRecipeFor(blockEntity, level).map(HellSmeltingRecipe::getCookingTime).orElse(50);
     }
 
     public static boolean isFuel(ItemStack itemStack) {
@@ -451,7 +458,16 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             Object2IntMap.Entry<ResourceLocation> entry = (Object2IntMap.Entry)var4.next();
             p_154996_.getRecipeManager().byKey((ResourceLocation)entry.getKey()).ifPresent((p_155023_) -> {
                 list.add(p_155023_);
-                createExperience(p_154996_, p_154997_, entry.getIntValue(), ((AbstractCookingRecipe)p_155023_).getExperience());
+                try{
+                createExperience(p_154996_, p_154997_, entry.getIntValue(), ((HellSmeltingRecipe)p_155023_).getExperience());}
+                catch (java.lang.ClassCastException e1){
+                    try{
+                        createExperience(p_154996_, p_154997_, entry.getIntValue(), ((AbstractCookingRecipe)p_155023_).getExperience());
+                    }catch (java.lang.ClassCastException e2){
+                        System.out.println("How did this get past both recipe checks?????");
+                        e2.printStackTrace();
+                    }
+                }
             });
         }
 
