@@ -9,5 +9,9 @@
     "item": "mtetm:enderfused_adamantium_ingot"
   },
   "experience": 3,
-  "cookingtime": 200
+  "cookingtime": 200,
+  "byproduct":{
+    "item": "minecraft:stone"
+  },
+  "byproductchance": 0.0
 }

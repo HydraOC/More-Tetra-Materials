@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class HellforgeBlockEntity extends AbstractHellforgeBE {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(3);
 
     public HellforgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HELLFORGE_BE.get(), pos, state, HellSmeltingRecipe.Type.INSTANCE, RecipeType.BLASTING);

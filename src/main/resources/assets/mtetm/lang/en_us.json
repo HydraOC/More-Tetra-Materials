@@ -80,5 +80,7 @@
   "tetra.material.socket_rose_quartz.prefix": "§dRose Quartz§r",
 
   "block.mtetm.hellforge": "Hellforge",
-  "container.hellforge": "Hellforge"
+  "container.hellforge": "Hellforge",
+
+  "sounds.mtetm.hellforge_lit": "Hellforge Smelting"
 }

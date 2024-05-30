@@ -52,6 +52,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.minecraft.util.RandomSource;
 
 import net.hydraoc.mtetm.recipe.HellSmeltingRecipe;
 import se.mickelus.tetra.items.cell.ThermalCellItem;
@@ -63,7 +64,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     protected static final int SLOT_RESULT = 2;
     public static final int DATA_LIT_TIME = 0;
     private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{3, 2, 1};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
     public static final int DATA_LIT_DURATION = 1;
     public static final int DATA_COOKING_PROGRESS = 2;
@@ -86,7 +87,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     protected AbstractHellforgeBE(BlockEntityType<?> p_154991_, BlockPos p_154992_, BlockState p_154993_, RecipeType<? extends HellSmeltingRecipe> p_154994_, RecipeType<? extends AbstractCookingRecipe> recipeType2) {
         super(p_154991_, p_154992_, p_154993_);
-        this.items = NonNullList.withSize(3, ItemStack.EMPTY);
+        this.items = NonNullList.withSize(4, ItemStack.EMPTY);
         this.dataAccess = new ContainerData() {
             public int get(int p_58431_) {
                 switch (p_58431_) {
@@ -268,15 +269,16 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             if (itemstack.isEmpty()) {
                 return false;
             } else {
-                ItemStack itemstack1 = (ItemStack)itemStacks.get(2);
-                if (itemstack1.isEmpty()) {
+                ItemStack itemStackOutput = (ItemStack)itemStacks.get(2);
+                ItemStack itemStackByProduct = (ItemStack)itemStacks.get(3);
+                if (itemStackOutput.isEmpty() && itemStackByProduct.isEmpty()) {
                     return true;
-                } else if (!ItemStack.isSameItem(itemstack1, itemstack)) {
+                } else if (!ItemStack.isSameItem(itemStackOutput, itemstack)) {
                     return false;
-                } else if (itemstack1.getCount() + itemstack.getCount() <= p_155008_ && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
+                } else if (itemStackOutput.getCount() + itemstack.getCount() <= p_155008_ && itemStackOutput.getCount() + itemstack.getCount() <= itemStackOutput.getMaxStackSize()) {
                     return true;
                 } else {
-                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
+                    return itemStackOutput.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
                 }
             }
         } else {
@@ -286,32 +288,31 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     public boolean burn(RegistryAccess regAccess, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> list, int p_267157_) {
         if (this.canBurn(regAccess, recipe, list, p_267157_)) {
+            float rand = RandomSource.create().nextFloat();
             ItemStack itemstack = (ItemStack)list.get(0);
             ItemStack itemstack1 = recipe.assemble(this, regAccess);
-            ItemStack itemstack2 = (ItemStack)list.get(2);
-            if (itemstack2.isEmpty()) {
+            ItemStack outputStack = (ItemStack)list.get(2);
+            ItemStack byProductStack = (ItemStack)list.get(3);
+            if (outputStack.isEmpty()) {
                 list.set(2, itemstack1.copy());
-            } else if (itemstack2.is(itemstack1.getItem())) {
-                itemstack2.grow(itemstack1.getCount());
+            } else if (outputStack.is(itemstack1.getItem())) {
+                outputStack.grow(itemstack1.getCount());
             }
-
             if(itemstack.getItem() instanceof ThermalCellItem) {
-                ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack)-1);
-            }else{
+            ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack)-1);
+            }else {
                 itemstack.shrink(1);
+            }
+            if(recipe.getType().equals(HellSmeltingRecipe.Type.INSTANCE)){
+                System.out.println("type match");
+                if(rand <= ((HellSmeltingRecipe) recipe.getType()).getByproductchance()){
+                    System.out.println("by product triggered");
+                    byProductStack.grow(((HellSmeltingRecipe) recipe.getType()).getByProduct().getCount());
+                }
             }
             return true;
         } else {
             return false;
-        }
-    }
-
-    public int getBurnDuration(ItemStack itemStack) {
-        if (itemStack.isEmpty()) {
-            return 0;
-        } else {
-            Item item = itemStack.getItem();
-            return ThermalCellItem.getCharge(itemStack)*10000;
         }
     }
 

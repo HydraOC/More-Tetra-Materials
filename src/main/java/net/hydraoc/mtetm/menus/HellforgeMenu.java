@@ -18,12 +18,12 @@ public class HellforgeMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public HellforgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(6));
     }
 
     public HellforgeMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.HELLFORGE_MENU.get(), pContainerId);
-        checkContainerSize(inv, 5);
+        checkContainerSize(inv, 6);
         blockEntity = ((HellforgeBlockEntity) entity);
         this.level = inv.player.level();
         this.data = data;
@@ -35,6 +35,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(iItemHandler, 0, 31, 30)); //Input Slot
             this.addSlot(new SlotItemHandler(iItemHandler, 1, 144, 56)); //Fuel Slot
             this.addSlot(new SlotItemHandler(iItemHandler, 2, 91,30)); //Output Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 3, 91,55)); //By-product Slot
         });
 
         addDataSlots(data);
@@ -76,7 +77,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
     private static final int TE_INV_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOTS;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INV_SLOTS = 3;  // must be the number of slots you have!
+    private static final int TE_INV_SLOTS = 4;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
