@@ -28,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.function.ToIntFunction;
 
 public abstract class AbstractCFB extends BaseEntityBlock {
     public static final DirectionProperty FACING;

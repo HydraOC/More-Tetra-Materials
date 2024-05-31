@@ -45,6 +45,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -220,7 +221,12 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         if (blockEntity.isLit(level, blockEntity)) {
             flag1 = true;
             blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, flag1);
-            level.setBlock(pos, blockState, 3);
+            level.setBlock(pos, blockState, 10);
+            setChanged(level, pos, blockState);
+        }else{
+            flag1 = false;
+            blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, flag1);
+            level.setBlock(pos, blockState, 10);
             setChanged(level, pos, blockState);
         }
 
@@ -265,12 +271,12 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     }
 
-    public boolean canBurn(RegistryAccess p_266924_, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> itemStacks, int p_155008_) {
+    public boolean canBurn(RegistryAccess registry, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> itemStacks, int p_155008_) {
         if (!((ItemStack)itemStacks.get(0)).isEmpty()) {
             if(recipe == null){
                 return false;
             }
-            ItemStack itemstack = recipe.assemble(this, p_266924_);
+            ItemStack itemstack = recipe.assemble(this, registry);
             if (itemstack.isEmpty()) {
                 return false;
             } else {
@@ -291,19 +297,22 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         }
     }
 
-    public boolean burn(RegistryAccess regAccess, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> list, int p_267157_) {
-        if (this.canBurn(regAccess, recipe, list, p_267157_)) {
-            double rand = Math.random();
-            ItemStack itemstack = (ItemStack)list.get(0);
-            ItemStack itemstack1 = recipe.assemble(this, regAccess);
-            ItemStack outputStack = (ItemStack)list.get(2);
-            ItemStack byProductStack = (ItemStack)list.get(3);
-            if (outputStack.isEmpty()) {
-                list.set(2, itemstack1.copy());
-            } else if (outputStack.is(itemstack1.getItem())) {
-                outputStack.grow(itemstack1.getCount());
-                itemstack.shrink(1);
+    private boolean burn(RegistryAccess registry, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> itemStacks, int p_267157_) {
+        if (recipe != null && this.canBurn(registry, recipe, itemStacks, p_267157_)) {
+            ItemStack itemstack = (ItemStack)itemStacks.get(0);
+            ItemStack itemstack1 = recipe.assemble(this, registry);
+            ItemStack itemstack2 = (ItemStack)itemStacks.get(2);
+            if (itemstack2.isEmpty()) {
+                itemStacks.set(2, itemstack1.copy());
+            } else if (itemstack2.is(itemstack1.getItem())) {
+                itemstack2.grow(itemstack1.getCount());
             }
+
+            if (itemstack.is(Blocks.WET_SPONGE.asItem()) && !((ItemStack)itemStacks.get(1)).isEmpty() && ((ItemStack)itemStacks.get(1)).is(Items.BUCKET)) {
+                itemStacks.set(1, new ItemStack(Items.WATER_BUCKET));
+            }
+
+            itemstack.shrink(1);
             return true;
         } else {
             return false;

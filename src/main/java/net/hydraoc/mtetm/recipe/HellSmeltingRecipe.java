@@ -72,6 +72,10 @@ public class HellSmeltingRecipe implements Recipe<Container> {
         return Type.INSTANCE;
     }
 
+    public NonNullList<Ingredient> getIngredients() {
+        return inputItems;
+    }
+
     public int getCookingTime() {return this.cookingtime;}
     public float getExperience() {return this.experience;}
     public ItemStack getByProduct() {return byproduct.copy();}

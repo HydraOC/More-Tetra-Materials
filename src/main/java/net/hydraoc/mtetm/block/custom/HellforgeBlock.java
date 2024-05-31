@@ -14,6 +14,8 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -50,6 +52,7 @@ public class HellforgeBlock extends AbstractCFB {
             double $$4 = (double)pos.getX() + 0.5;
             double $$5 = (double)pos.getY()+0.5;
             double $$6 = (double)pos.getZ() + 0.5;
+            level.setBlock(pos, (BlockState)state.setValue(LIT, true), 3);
             if (randSource.nextDouble() < 0.1) {
                 level.playLocalSound($$4, $$5, $$6, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.25F, 0.5F, false);
             }
