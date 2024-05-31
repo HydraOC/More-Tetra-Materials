@@ -31,10 +31,10 @@
   "block.mtetm.raw_pandorium_block": "Block of Raw Pandorium",
   "block.mtetm.pandorium_ore": "Pandorium Ore",
 
-  "block.mtetm.blood_emerald_ore": "Blood Emerald Ore",
-  "block.mtetm.blood_emerald_block": "Block of Blood Emerald",
-  "item.mtetm.blood_emerald": "Blood Emerald",
-  "item.mtetm.blood_emerald_dust": "Blood Emerald Dust",
+  "block.mtetm.blood_emerald_ore": "Scarlite Ore",
+  "block.mtetm.blood_emerald_block": "Block of Scarlite",
+  "item.mtetm.blood_emerald": "Scarlite",
+  "item.mtetm.blood_emerald_dust": "Scarlite Dust",
 
   "item.mtetm.ender_pearl_dust": "Ender Pearl Dust",
 
@@ -47,21 +47,12 @@
   "tetra.material.pandorium": "Pandorium",
   "tetra.material.pandorium.prefix": "Pandorium",
 
-  "tetra.material.blood_emerald": "Blood Emerald",
-  "tetra.material.blood_emerald.prefix": "Blood Emerald",
+  "tetra.material.blood_emerald": "Scarlite",
+  "tetra.material.blood_emerald.prefix": "Scarlite",
   "tetra.material.quartz": "Quartz",
   "tetra.material.quartz.prefix": "Quartz",
   "tetra.material.charged_quartz": "Charged Quartz",
   "tetra.material.charged_quartz.prefix": "Charged Quartz",
-
-  "tetra.material.osmium": "Osmium",
-  "tetra.material.osmium.prefix": "Osmium",
-  "tetra.material.steel": "Steel",
-  "tetra.material.steel.prefix": "Steel",
-  "tetra.material.refined_glowstone": "Refined Glowstone",
-  "tetra.material.refined_glowstone.prefix": "Refined Glowstone",
-  "tetra.material.refined_obsidian": "Refined Obsidian",
-  "tetra.material.refined_obsidian.prefix": "Refined Obsidian",
 
   "tetra.smash_mithril_ingot_action.label": "Pulverize",
   "tetra.smash_adamantium_ingot_action.label": "Pulverize",
@@ -70,8 +61,8 @@
   "tetra.smash_enderfused_adamantium_ingot_action.label": "Pulverize",
   "tetra.smash_ender_pearl_action.label": "Pulverize",
 
-  "tetra.material.socket_blood_emerald": "Blood Emerald socket",
-  "tetra.material.socket_blood_emerald.prefix": "§cBlood Emerald§r",
+  "tetra.material.socket_blood_emerald": "Scarlite socket",
+  "tetra.material.socket_blood_emerald.prefix": "§cScarlite§r",
 
   "tetra.material.socket_charged_quartz": "Charged Quartz socket",
   "tetra.material.socket_charged_quartz.prefix": "§bCharged Quartz§r",
@@ -79,6 +70,8 @@
   "tetra.material.socket_rose_quartz": "Rose Quartz socket",
   "tetra.material.socket_rose_quartz.prefix": "§dRose Quartz§r",
 
-  "block.mtetm.netherite_furnace": "Netherite Furnace",
-  "container.netherite_furnace": "Netherite Furnace"
+  "block.mtetm.hellforge": "Hellforge",
+  "container.hellforge": "Hellforge",
+
+  "sounds.mtetm.hellforge_lit": "Hellforge Smelting"
 }
