@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "/B/",
+        "XNX"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:nether_bricks"
+        },
+        "/": {
+            "item": "minecraft:blaze_rod"
+        },
+        "B": {
+            "item": "minecraft:blast_furnace"
+        },
+        "X": {
+            "item": "tetra:thermal_cell"
+        },
+        "N": {
+            "item": "minecraft:netherite_block"
+        }
+    },
+    "result": {
+        "item": "mtetm:hellforge",
+        "count": 1
+    }
+}
