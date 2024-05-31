@@ -21,6 +21,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -52,7 +54,6 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.minecraft.util.RandomSource;
 
 import net.hydraoc.mtetm.recipe.HellSmeltingRecipe;
 import se.mickelus.tetra.items.cell.ThermalCellItem;
@@ -205,6 +206,9 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState blockState, AbstractHellforgeBE blockEntity) {
+        double adjustX = (double)pos.getX() + 0.5;
+        double adjustY = (double)pos.getY()+0.5;
+        double adjustZ = (double)pos.getZ() + 0.5;
         boolean flag = blockEntity.isLit(level, blockEntity);
         boolean flag1 = false;
         fuelTicker(blockEntity);
@@ -224,6 +228,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*200;
             blockEntity.litDuration = 51200;
             ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack));
+            level.playLocalSound(adjustX, adjustY, adjustZ, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F, false);
         }
 
         if (!blockEntity.isLit(level, blockEntity) && (!flag3 || !flag2)) {
@@ -288,7 +293,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     public boolean burn(RegistryAccess regAccess, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> list, int p_267157_) {
         if (this.canBurn(regAccess, recipe, list, p_267157_)) {
-            float rand = RandomSource.create().nextFloat();
+            double rand = Math.random();
             ItemStack itemstack = (ItemStack)list.get(0);
             ItemStack itemstack1 = recipe.assemble(this, regAccess);
             ItemStack outputStack = (ItemStack)list.get(2);
@@ -297,18 +302,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
                 list.set(2, itemstack1.copy());
             } else if (outputStack.is(itemstack1.getItem())) {
                 outputStack.grow(itemstack1.getCount());
-            }
-            if(itemstack.getItem() instanceof ThermalCellItem) {
-            ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack)-1);
-            }else {
                 itemstack.shrink(1);
-            }
-            if(recipe.getType().equals(HellSmeltingRecipe.Type.INSTANCE)){
-                System.out.println("type match");
-                if(rand <= ((HellSmeltingRecipe) recipe.getType()).getByproductchance()){
-                    System.out.println("by product triggered");
-                    byProductStack.grow(((HellSmeltingRecipe) recipe.getType()).getByProduct().getCount());
-                }
             }
             return true;
         } else {

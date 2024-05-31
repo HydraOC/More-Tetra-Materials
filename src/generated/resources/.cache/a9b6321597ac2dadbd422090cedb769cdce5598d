@@ -1,5 +1,0 @@
-// 1.20.1	2024-02-28T08:46:50.1573059	Tags for minecraft:block mod id mtetm
-41bc2f99d7ffe4f05924997ce2d5cc09fdc34b1b data/forge/tags/blocks/needs_netherite_tool.json
-ca28780bde04a02142afd2ee158a54c0b5f9d2ac data/minecraft/tags/blocks/mineable/pickaxe.json
-6327e749128b5e3f3381d9937d71d354df9475aa data/mtetm/tags/blocks/needs_adamantium_tool.json
-faa9b71bb859cf92148ee4473ef43fbaf8f7528a data/mtetm/tags/blocks/needs_mithril_tool.json

@@ -51,7 +51,7 @@ public class HellforgeBlock extends AbstractCFB {
             double $$5 = (double)pos.getY()+0.5;
             double $$6 = (double)pos.getZ() + 0.5;
             if (randSource.nextDouble() < 0.1) {
-                level.playLocalSound($$4, $$5, $$6, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                level.playLocalSound($$4, $$5, $$6, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.25F, 0.5F, false);
             }
 
             Direction $$7 = (Direction)state.getValue(FACING);

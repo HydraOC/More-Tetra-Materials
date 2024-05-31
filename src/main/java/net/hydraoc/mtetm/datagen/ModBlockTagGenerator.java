@@ -51,5 +51,9 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
         this.tag(ModTags.Blocks.NEEDS_ADAMANTIUM_TOOL).add(ModBlocks.PANDORIUM_BLOCK.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.ENDERFUSED_ADAMNTIUM_BLOCK.get());
         this.tag(ModTags.Blocks.NEEDS_ADAMANTIUM_TOOL).add(ModBlocks.ENDERFUSED_ADAMNTIUM_BLOCK.get());
+
+        //Misc tag addition
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.HELLFORGE.get());
+        this.tag(Tags.Blocks.NEEDS_NETHERITE_TOOL).add(ModBlocks.HELLFORGE.get());
     }
 }
