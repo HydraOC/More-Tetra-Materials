@@ -336,16 +336,20 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         }
     }
 
-    public boolean canPlaceItemThroughFace(int p_58336_, ItemStack itemStack, @Nullable Direction dir) {
-        return this.canPlaceItem(p_58336_, itemStack);
+    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction dir) {
+        return this.canPlaceItem(slot, itemStack);
     }
 
     public boolean canTakeItemThroughFace(int p_58392_, ItemStack itemStack, Direction dir) {
         if (dir == Direction.DOWN && p_58392_ == 1) {
-            return itemStack.is(Items.WATER_BUCKET) || itemStack.is(Items.BUCKET);
+            if(itemStack.getDamageValue()==128) {
+                return true;
+            }
         } else {
             return true;
         }
+        System.out.println(itemStack.getDamageValue());
+        return false;
     }
 
     public int getContainerSize() {
