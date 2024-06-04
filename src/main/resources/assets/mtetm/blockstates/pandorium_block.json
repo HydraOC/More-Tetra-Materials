@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mtetm:block/pandorium_block"
+    }
+  }
+}
