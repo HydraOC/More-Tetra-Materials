@@ -13,38 +13,35 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.hydraoc.mtetm.MoreTetraMaterials;
 import net.hydraoc.mtetm.block.ModBlocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class HellSmeltingCategory implements IRecipeCategory<HellSmeltingRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "hellforge");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(MoreTetraMaterials.MOD_ID,
-            "textures/gui/hellforge_jei.png");
+public class SmashingCategory implements IRecipeCategory<SmashingRecipe> {
+    public static final ResourceLocation UID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "smashing");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(MoreTetraMaterials.MOD_ID, "textures/gui/smashing_jei.png");
 
-    public static final RecipeType<HellSmeltingRecipe> HELL_SMELTING_TYPE =
-            new RecipeType<>(UID, HellSmeltingRecipe.class);
+    public static final RecipeType<SmashingRecipe> SMASHING_RECIPE_TYPE =
+            new RecipeType<>(UID, SmashingRecipe.class);
 
     private final IDrawable background;
     private final IDrawableAnimated arrow;
     private final IDrawable icon;
 
-    public HellSmeltingCategory(IGuiHelper helper) {
+    public SmashingCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 25, 0, 146, 75);;
         this.arrow = helper.drawableBuilder(TEXTURE, 0, 174, 24, 17)
                 .buildAnimated(400, IDrawableAnimated.StartDirection.LEFT, false);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.HELLFORGE.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.SMASHING_ICON.get()));
     }
 
     @Override
-    public RecipeType<HellSmeltingRecipe> getRecipeType() {
-        return HELL_SMELTING_TYPE;
+    public RecipeType<SmashingRecipe> getRecipeType() {
+        return SMASHING_RECIPE_TYPE;
     }
 
     @Override
-    public void draw(HellSmeltingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+    public void draw(SmashingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         arrow.draw(stack);
     }
 
@@ -64,7 +61,7 @@ public class HellSmeltingCategory implements IRecipeCategory<HellSmeltingRecipe>
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, HellSmeltingRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, SmashingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 31-25, 30).addIngredients(recipe.getIngredients().get(0));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 91-25, 30).addItemStack(recipe.getResultItem(null));
     }

@@ -1,0 +1,11 @@
+{
+  "type": "mtetm:smashing",
+  "ingredient": [
+    {
+      "item": "mtetm:pandorium_ingot"
+    }
+  ],
+  "result": {
+    "item": "mtetm:pandorium_dust"
+  }
+}

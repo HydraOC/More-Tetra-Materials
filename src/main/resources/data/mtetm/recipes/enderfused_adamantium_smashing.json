@@ -1,0 +1,11 @@
+{
+  "type": "mtetm:smashing",
+  "ingredient": [
+    {
+      "item": "mtetm:enderfused_adamantium_ingot"
+    }
+  ],
+  "result": {
+    "item": "mtetm:enderfused_adamantium_dust"
+  }
+}

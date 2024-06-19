@@ -9,6 +9,8 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.hydraoc.mtetm.MoreTetraMaterials;
 import net.hydraoc.mtetm.recipe.HellSmeltingCategory;
 import net.hydraoc.mtetm.recipe.HellSmeltingRecipe;
+import net.hydraoc.mtetm.recipe.SmashingCategory;
+import net.hydraoc.mtetm.recipe.SmashingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -33,11 +35,14 @@ public class JEIMenu implements IModPlugin {
 
         List<HellSmeltingRecipe> hellSmeltingRecipes = recipeManager.getAllRecipesFor(HellSmeltingRecipe.Type.INSTANCE);
         registration.addRecipes(HellSmeltingCategory.HELL_SMELTING_TYPE, hellSmeltingRecipes);
+
+        List<SmashingRecipe> smashingRecipes = recipeManager.getAllRecipesFor(SmashingRecipe.Type.INSTANCE);
+        registration.addRecipes(SmashingCategory.SMASHING_RECIPE_TYPE, smashingRecipes);
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(HellforgeScreen.class, 54, 29, 24, 17,
-                HellSmeltingCategory.HELL_SMELTING_TYPE);
+        registration.addRecipeClickArea(HellforgeScreen.class, 54, 29, 24, 17, HellSmeltingCategory.HELL_SMELTING_TYPE);
+        registration.addRecipeClickArea(HellforgeScreen.class, 54, 29, 24, 17, SmashingCategory.SMASHING_RECIPE_TYPE);
     }
 }

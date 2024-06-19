@@ -15,6 +15,8 @@ public class ModRecipes {
     public static final RegistryObject<RecipeSerializer<HellSmeltingRecipe>> HELL_SMELTING_SERIALIZER =
             SERIALIZERS.register("hell_smelting", () -> HellSmeltingRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<SmashingRecipe>> SMASHING_SERIALIZER =
+            SERIALIZERS.register("smashing", () -> SmashingRecipe.Serializer.INSTANCE);
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);
     }

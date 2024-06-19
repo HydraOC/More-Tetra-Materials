@@ -1,0 +1,11 @@
+{
+  "type": "mtetm:smashing",
+  "ingredient": [
+    {
+      "item": "mtetm:mithril_ingot"
+    }
+  ],
+  "result": {
+    "item": "mtetm:mithril_dust"
+  }
+}

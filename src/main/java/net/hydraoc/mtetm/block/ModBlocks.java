@@ -79,6 +79,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> HELLFORGE = registerBlock("hellforge",
             () -> new HellforgeBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13))));
 
+    public static final RegistryObject<Block> SMASHING_ICON = registerBlock("smashing_icon.json",
+            () -> new HellforgeBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13))));
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);

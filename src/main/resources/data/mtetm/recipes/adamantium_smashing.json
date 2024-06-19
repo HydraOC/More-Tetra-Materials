@@ -1,0 +1,11 @@
+{
+  "type": "mtetm:smashing",
+  "ingredient": [
+    {
+      "item": "mtetm:adamantium_ingot"
+    }
+  ],
+  "result": {
+    "item": "mtetm:adamantium_dust"
+  }
+}

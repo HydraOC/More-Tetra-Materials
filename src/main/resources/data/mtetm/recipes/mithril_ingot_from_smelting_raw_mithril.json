@@ -2,7 +2,7 @@
   "type": "mtetm:hell_smelting",
   "ingredient": [
     {
-      "item": "mtetm:mithril_ore"
+      "item": "mtetm:raw_mithril"
     }
   ],
   "result": {
