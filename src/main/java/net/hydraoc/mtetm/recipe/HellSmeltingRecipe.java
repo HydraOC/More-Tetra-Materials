@@ -83,11 +83,9 @@ public class HellSmeltingRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<HellSmeltingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "hell_smelting");
+
         @Override
         public HellSmeltingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
-            float xp = GsonHelper.getAsFloat(pSerializedRecipe, "experience", 0.0F);
-            int cooktime = GsonHelper.getAsInt(pSerializedRecipe, "cookingtime", 200);
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
@@ -96,7 +94,11 @@ public class HellSmeltingRecipe implements Recipe<Container> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new HellSmeltingRecipe(inputs, output, pRecipeId, xp, cooktime);
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
+            float experience = GsonHelper.getAsFloat(pSerializedRecipe, "experience", 0.0F);
+            int cooktime = GsonHelper.getAsInt(pSerializedRecipe, "cookingtime", 200);
+
+            return new HellSmeltingRecipe(inputs, output, pRecipeId, experience, cooktime);
         }
 
         @Override
@@ -108,9 +110,9 @@ public class HellSmeltingRecipe implements Recipe<Container> {
             }
 
             ItemStack output = pBuffer.readItem();
-            float xp = pBuffer.readFloat();
-            int cooktime = pBuffer.readVarInt();
-            return new HellSmeltingRecipe(inputs, output, pRecipeId, xp, cooktime);
+            float experience = pBuffer.readFloat();
+            int cooktime = pBuffer.readInt();
+            return new HellSmeltingRecipe(inputs, output, pRecipeId, experience, cooktime);
         }
 
         @Override
@@ -121,7 +123,9 @@ public class HellSmeltingRecipe implements Recipe<Container> {
                 ingredient.toNetwork(pBuffer);
             }
 
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            pBuffer.writeItemStack(pRecipe.getResultItem(null),false);
+            pBuffer.writeFloat(pRecipe.getExperience());
+            pBuffer.writeInt(pRecipe.getCookingTime());
         }
     }
 }
