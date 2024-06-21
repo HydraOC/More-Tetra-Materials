@@ -9,9 +9,5 @@
     "item": "mtetm:pandorium_ingot"
   },
   "experience": 2,
-  "cookingtime": 200,
-  "byproduct":{
-    "item": "minecraft:stone"
-  },
-  "byproductchance": 0.0
+  "cookingtime": 200
 }

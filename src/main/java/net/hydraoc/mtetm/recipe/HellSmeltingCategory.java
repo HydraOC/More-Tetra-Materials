@@ -44,11 +44,6 @@ public class HellSmeltingCategory implements IRecipeCategory<HellSmeltingRecipe>
     }
 
     @Override
-    public void draw(HellSmeltingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-        arrow.draw(stack);
-    }
-
-    @Override
     public Component getTitle() {
         return Component.translatable("block.mtetm.smashing_jei");
     }

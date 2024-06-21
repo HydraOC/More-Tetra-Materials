@@ -20,17 +20,13 @@ public class HellSmeltingRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final float experience;
     private final int cookingtime;
-    private final ItemStack byproduct;
-    private final float byproductchance;
 
-    public HellSmeltingRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id, float xp, int time, ItemStack output2, float chance) {
+    public HellSmeltingRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id, float xp, int time) {
         this.inputItems = inputItems;
         this.result = output;
         this.id = id;
         this.experience = xp;
         this.cookingtime = time;
-        this.byproduct = output2;
-        this.byproductchance = chance;
     }
 
     @Override
@@ -78,8 +74,6 @@ public class HellSmeltingRecipe implements Recipe<Container> {
 
     public int getCookingTime() {return this.cookingtime;}
     public float getExperience() {return this.experience;}
-    public ItemStack getByProduct() {return byproduct.copy();}
-    public float getByproductchance() {return this.byproductchance;}
 
     public static class Type implements RecipeType<HellSmeltingRecipe> {
         public static final Type INSTANCE = new Type();
@@ -89,13 +83,9 @@ public class HellSmeltingRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<HellSmeltingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "hell_smelting");
+
         @Override
         public HellSmeltingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
-            float xp = GsonHelper.getAsFloat(pSerializedRecipe, "experience", 0.0F);
-            int cooktime = GsonHelper.getAsInt(pSerializedRecipe, "cookingtime", 200);
-            ItemStack output2 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "byproduct"));
-            float chance = GsonHelper.getAsFloat(pSerializedRecipe, "byproductchance", 0.0F);
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
@@ -104,7 +94,11 @@ public class HellSmeltingRecipe implements Recipe<Container> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new HellSmeltingRecipe(inputs, output, pRecipeId, xp, cooktime, output2, chance);
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
+            float experience = GsonHelper.getAsFloat(pSerializedRecipe, "experience", 0.0F);
+            int cooktime = GsonHelper.getAsInt(pSerializedRecipe, "cookingtime", 200);
+
+            return new HellSmeltingRecipe(inputs, output, pRecipeId, experience, cooktime);
         }
 
         @Override
@@ -116,11 +110,9 @@ public class HellSmeltingRecipe implements Recipe<Container> {
             }
 
             ItemStack output = pBuffer.readItem();
-            float xp = pBuffer.readFloat();
-            int cooktime = pBuffer.readVarInt();
-            ItemStack output2 = pBuffer.readItem();
-            float chance = pBuffer.readFloat();
-            return new HellSmeltingRecipe(inputs, output, pRecipeId, xp, cooktime, output2, chance);
+            float experience = pBuffer.readFloat();
+            int cooktime = pBuffer.readInt();
+            return new HellSmeltingRecipe(inputs, output, pRecipeId, experience, cooktime);
         }
 
         @Override
@@ -131,7 +123,9 @@ public class HellSmeltingRecipe implements Recipe<Container> {
                 ingredient.toNetwork(pBuffer);
             }
 
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            pBuffer.writeItemStack(pRecipe.getResultItem(null),false);
+            pBuffer.writeFloat(pRecipe.getExperience());
+            pBuffer.writeInt(pRecipe.getCookingTime());
         }
     }
 }
