@@ -9,25 +9,24 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class SmashingRecipe implements Recipe<SimpleContainer> {
+public class SmashingRecipe implements Recipe<Container> {
     private final NonNullList<Ingredient> inputItems;
-    private final ItemStack output;
+    private final ItemStack result;
     private final ResourceLocation id;
 
     public SmashingRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id) {
         this.inputItems = inputItems;
-        this.output = output;
+        this.result = output;
         this.id = id;
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
+    public boolean matches(Container pContainer, Level pLevel) {
         if(pLevel.isClientSide()) {
             return false;
         }
@@ -36,8 +35,8 @@ public class SmashingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
-        return output.copy();
+    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+        return result.copy();
     }
 
     @Override
@@ -47,7 +46,7 @@ public class SmashingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return output.copy();
+        return result.copy();
     }
 
     @Override
@@ -57,26 +56,29 @@ public class SmashingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return SmashingRecipe.Serializer.INSTANCE;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return SmashingRecipe.Type.INSTANCE;
+    }
+
+    public NonNullList<Ingredient> getIngredients() {
+        return inputItems;
     }
 
     public static class Type implements RecipeType<SmashingRecipe> {
-        public static final Type INSTANCE = new Type();
+        public static final SmashingRecipe.Type INSTANCE = new SmashingRecipe.Type();
         public static final String ID = "smashing";
     }
 
     public static class Serializer implements RecipeSerializer<SmashingRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
+        public static final SmashingRecipe.Serializer INSTANCE = new SmashingRecipe.Serializer();
         public static final ResourceLocation ID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "smashing");
 
         @Override
         public SmashingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
@@ -84,6 +86,8 @@ public class SmashingRecipe implements Recipe<SimpleContainer> {
             for(int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
+
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
 
             return new SmashingRecipe(inputs, output, pRecipeId);
         }
@@ -108,7 +112,7 @@ public class SmashingRecipe implements Recipe<SimpleContainer> {
                 ingredient.toNetwork(pBuffer);
             }
 
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            pBuffer.writeItemStack(pRecipe.getResultItem(null),false);
         }
     }
 }

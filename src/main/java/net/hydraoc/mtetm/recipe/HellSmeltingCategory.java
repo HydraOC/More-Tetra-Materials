@@ -45,7 +45,7 @@ public class HellSmeltingCategory implements IRecipeCategory<HellSmeltingRecipe>
 
     @Override
     public Component getTitle() {
-        return Component.translatable("block.mtetm.smashing_jei");
+        return Component.translatable("block.mtetm.hell_smelting_jei");
     }
 
     @Override
