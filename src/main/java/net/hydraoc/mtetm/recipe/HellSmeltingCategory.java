@@ -35,7 +35,7 @@ public class HellSmeltingCategory implements IRecipeCategory<HellSmeltingRecipe>
         this.background = helper.createDrawable(TEXTURE, 25, 0, 146, 75);;
         this.arrow = helper.drawableBuilder(TEXTURE, 0, 174, 24, 17)
                 .buildAnimated(400, IDrawableAnimated.StartDirection.LEFT, false);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.HELLFORGE.get()));
+        this.icon = helper.createDrawableItemStack(new ItemStack(ModBlocks.HELLFORGE.get()));
     }
 
     @Override

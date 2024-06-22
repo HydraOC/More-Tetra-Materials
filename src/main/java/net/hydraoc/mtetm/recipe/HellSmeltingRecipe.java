@@ -3,6 +3,7 @@ package net.hydraoc.mtetm.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.hydraoc.mtetm.MoreTetraMaterials;
+import net.hydraoc.mtetm.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,6 +13,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 public class HellSmeltingRecipe implements Recipe<Container> {
@@ -70,6 +72,10 @@ public class HellSmeltingRecipe implements Recipe<Container> {
 
     public NonNullList<Ingredient> getIngredients() {
         return inputItems;
+    }
+
+    public ItemStack getToastSymbol() {
+        return new ItemStack(ModBlocks.HELLFORGE.get());
     }
 
     public int getCookingTime() {return this.cookingtime;}

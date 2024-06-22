@@ -3,22 +3,28 @@ package net.hydraoc.mtetm.menus;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.*;
 import net.hydraoc.mtetm.MoreTetraMaterials;
-import net.hydraoc.mtetm.recipe.HellSmeltingCategory;
-import net.hydraoc.mtetm.recipe.HellSmeltingRecipe;
-import net.hydraoc.mtetm.recipe.SmashingRecipe;
-import net.hydraoc.mtetm.recipe.SmashingCategory;
+import net.hydraoc.mtetm.block.ModBlocks;
+import net.hydraoc.mtetm.recipe.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import se.mickelus.tetra.blocks.workbench.BasicWorkbenchBlock;
+import se.mickelus.tetra.blocks.forged.ForgedWorkbenchBlock;
+
 
 import java.util.List;
 
 @JeiPlugin
-public class JEIMenu implements IModPlugin {
+public class MtetmJEIPlugin implements IModPlugin {
+    public static final RecipeType<HellSmeltingRecipe> HELL_SMELTING = RecipeType.create(MoreTetraMaterials.MOD_ID, "hell_smelting", HellSmeltingRecipe.class);
+    public static final RecipeType<SmashingRecipe> SMASHING = RecipeType.create(MoreTetraMaterials.MOD_ID, "smashing", SmashingRecipe.class);
+
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(MoreTetraMaterials.MOD_ID, "jei_plugin");
@@ -27,6 +33,7 @@ public class JEIMenu implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new HellSmeltingCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new SmashingCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -41,8 +48,14 @@ public class JEIMenu implements IModPlugin {
     }
 
     @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.HELLFORGE.get()), RecipeTypes.BLASTING);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.HELLFORGE.get()), HELL_SMELTING);
+        registry.addRecipeCatalyst(new ItemStack(BasicWorkbenchBlock.instance), SMASHING);
+    }
+
+    @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(HellforgeScreen.class, 54, 29, 24, 17, HellSmeltingCategory.HELL_SMELTING_TYPE);
-        registration.addRecipeClickArea(HellforgeScreen.class, 54, 29, 24, 17, SmashingCategory.SMASHING_TYPE);
     }
 }
