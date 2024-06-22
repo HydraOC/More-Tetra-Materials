@@ -5,6 +5,7 @@ import net.hydraoc.mtetm.block.entity.ModBlockEntities;
 import net.hydraoc.mtetm.item.ModCreativeModeTab;
 import net.hydraoc.mtetm.item.ModItems;
 import net.hydraoc.mtetm.block.ModBlocks;
+import net.hydraoc.mtetm.item.ModToolTiers;
 import net.hydraoc.mtetm.menus.HellforgeScreen;
 import net.hydraoc.mtetm.menus.ModMenuTypes;
 import net.hydraoc.mtetm.recipe.ModRecipes;
@@ -42,6 +43,8 @@ public class MoreTetraMaterials {
 
         ModRecipes.register(modEventBus);
         ModSounds.register(modEventBus);
+
+        ModToolTiers.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

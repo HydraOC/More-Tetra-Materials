@@ -51,6 +51,9 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModItems.BLOOD_EMERALD.get());
                         pOutput.accept(ModBlocks.BLOOD_EMERALD_BLOCK.get());
 
+                        //pOutput.accept(ModItems.MITHRIL_PICKAXE.get());
+                        //pOutput.accept(ModItems.ADAMANTIUM_PICKAXE.get());
+
                         pOutput.accept(ModBlocks.HELLFORGE.get());
                     })
                     .build());
