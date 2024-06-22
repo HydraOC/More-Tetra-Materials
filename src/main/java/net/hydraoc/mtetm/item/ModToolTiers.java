@@ -8,25 +8,20 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.common.TierSortingRegistry;
+import se.mickelus.tetra.TetraRegistries;
 
 import java.util.List;
 
 public class ModToolTiers {
-    public static final Tier MITHRIL;
 
-    static {
-        MITHRIL = TierSortingRegistry.registerTier(
-                new ForgeTier(5, 2000, 9f, 3f, 24,
-                        ModTags.Blocks.NEEDS_MITHRIL_TOOL, () -> Ingredient.of(ModItems.MITHRIL_INGOT.get())),
-                new ResourceLocation(MoreTetraMaterials.MOD_ID, "mithril"), List.of(Tiers.NETHERITE), List.of());
-    }
+    public static final Tier MITHRIL = new ForgeTier(5, 2000, 9f, 3f, 24,
+                    ModTags.Blocks.NEEDS_MITHRIL_TOOL, () -> Ingredient.of(ModItems.MITHRIL_INGOT.get()));
 
-    public static final Tier ADAMANTIUM;
+    public static final Tier ADAMANTIUM = new ForgeTier(6, 3000, 10f, 4f, 24,
+                    ModTags.Blocks.NEEDS_ADAMANTIUM_TOOL, () -> Ingredient.of(ModItems.ADAMANTIUM_INGOT.get()));
 
-    static {
-        ADAMANTIUM = TierSortingRegistry.registerTier(
-                new ForgeTier(6, 3000, 10f, 4f, 24,
-                        ModTags.Blocks.NEEDS_ADAMANTIUM_TOOL, () -> Ingredient.of(ModItems.ADAMANTIUM_INGOT.get())),
-                new ResourceLocation(MoreTetraMaterials.MOD_ID, "adamantium"), List.of(ModToolTiers.MITHRIL), List.of());
+    public static void init(){
+        TierSortingRegistry.registerTier(ModToolTiers.MITHRIL, new ResourceLocation(MoreTetraMaterials.MOD_ID, "mithril"), List.of(TetraRegistries.forgeHammerTier), List.of());
+        TierSortingRegistry.registerTier(ModToolTiers.ADAMANTIUM, new ResourceLocation(MoreTetraMaterials.MOD_ID, "adamantium"), List.of(ModToolTiers.MITHRIL), List.of());
     }
 }
