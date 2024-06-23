@@ -35,7 +35,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(iItemHandler, 0, 31, 30)); //Input Slot
             this.addSlot(new SlotItemHandler(iItemHandler, 1, 144, 56)); //Fuel Slot
             this.addSlot(new SlotItemHandler(iItemHandler, 2, 91,30)); //Output Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 3, -91,-55)); //By-product Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 3, 91000,55000)); //By-product Slot
         });
 
         addDataSlots(data);
