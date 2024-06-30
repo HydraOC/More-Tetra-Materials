@@ -61,13 +61,12 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         guiGraphics.blit(TEXTURE, x, y, 0, 174, progress, 16);
     }
 
-    //Renders the color bars for the menu (Like 7 pixels, but needed its own handler)
+    //Renders the color bars for the menu
     private void renderColorBars(GuiGraphics guiGraphics, int x , int y){
-        int fuel = menu.getLitProgress();
         if(menu.isLit()) {
             guiGraphics.blit(TEXTURE, x + 148, y + 7, 171, 7, 1, 3);
             guiGraphics.blit(TEXTURE, x + 135, y + 37, 171, 11, 5, 1);
-            if(menu.getBurnProgress()>0 || (menu.getSlot(2).hasItem() && menu.getSlot(0).hasItem())) {
+            if(menu.isLit() || (menu.getSlot(2).hasItem() && menu.getSlot(0).hasItem())) {
                 guiGraphics.blit(TEXTURE, x + 114, y + 34, 177, 5, 17, 7);
             }else{
                 guiGraphics.blit(TEXTURE, x + 114, y + 34, 114, 34, 17, 7);

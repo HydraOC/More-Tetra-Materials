@@ -75,6 +75,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
 
+
     //public static final RegistryObject<Item> MITHRIL_PICKAXE = ITEMS.register("mithril_pickaxe", () -> new PickaxeItem(ModToolTiers.MITHRIL, 1, 1, new Item.Properties()));
 
     //public static final RegistryObject<Item> ADAMANTIUM_PICKAXE = ITEMS.register("adamantium_pickaxe", () -> new PickaxeItem(ModToolTiers.ADAMANTIUM, 1, 1, new Item.Properties()));

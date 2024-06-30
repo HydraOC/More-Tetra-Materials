@@ -46,6 +46,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -93,20 +94,32 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         this.dataAccess = new ContainerData() {
             public int get(int p_58431_) {
                 switch (p_58431_) {
-                    case 0 -> {return AbstractHellforgeBE.this.litTime;}
-                    case 1 -> {return AbstractHellforgeBE.this.litDuration;}
-                    case 2 -> {return AbstractHellforgeBE.this.cookingProgress;}
-                    case 3 -> {return AbstractHellforgeBE.this.cookingTotalTime;}
-                    default -> {return 0;}
+                    case 0:
+                        return AbstractHellforgeBE.this.litTime;
+                    case 1:
+                        return AbstractHellforgeBE.this.litDuration;
+                    case 2:
+                        return AbstractHellforgeBE.this.cookingProgress;
+                    case 3:
+                        return AbstractHellforgeBE.this.cookingTotalTime;
+                    default:
+                        return 0;
                 }
             }
 
             public void set(int p_58433_, int p_58434_) {
                 switch (p_58433_) {
-                    case 0 -> AbstractHellforgeBE.this.litTime = p_58434_;
-                    case 1 -> AbstractHellforgeBE.this.litDuration = 51200;
-                    case 2 -> AbstractHellforgeBE.this.cookingProgress = p_58434_;
-                    case 3 -> AbstractHellforgeBE.this.cookingTotalTime = p_58434_;
+                    case 0:
+                        AbstractHellforgeBE.this.litTime = p_58434_;
+                        break;
+                    case 1:
+                        AbstractHellforgeBE.this.litDuration = p_58434_;
+                        break;
+                    case 2:
+                        AbstractHellforgeBE.this.cookingProgress = p_58434_;
+                        break;
+                    case 3:
+                        AbstractHellforgeBE.this.cookingTotalTime = p_58434_;
                 }
 
             }
@@ -121,15 +134,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         this.secondaryQuickCheck = RecipeManager.createCheck(recipeType2);
         this.primaryRecipeType = p_154994_;
         this.secondRecipeType = recipeType2;
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public static Map<Item, Integer> getFuel() {
-        Map<Item, Integer> map = Maps.newLinkedHashMap();
-        ItemStack cell = new ItemStack(ThermalCellItem.instance.get());
-        add(map, ThermalCellItem.instance.get(), ThermalCellItem.getCharge(cell)*200);
-        return map;
     }
 
     private static boolean isNeverAFurnaceFuel(Item p_58398_) {
@@ -160,15 +164,15 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     }
 
-    public void load(CompoundTag p_155025_) {
-        super.load(p_155025_);
+    public void load(CompoundTag compoundTagIN) {
+        super.load(compoundTagIN);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(p_155025_, this.items);
-        this.litTime = p_155025_.getInt("BurnTime");
-        this.cookingProgress = p_155025_.getInt("CookTime");
-        this.cookingTotalTime = p_155025_.getInt("CookTimeTotal");
+        ContainerHelper.loadAllItems(compoundTagIN, this.items);
+        this.litTime = compoundTagIN.getInt("BurnTime");
+        this.cookingProgress = compoundTagIN.getInt("CookTime");
+        this.cookingTotalTime = compoundTagIN.getInt("CookTimeTotal");
         this.litDuration = 51200;
-        CompoundTag compoundtag = p_155025_.getCompound("RecipesUsed");
+        CompoundTag compoundtag = compoundTagIN.getCompound("RecipesUsed");
         Iterator var3 = compoundtag.getAllKeys().iterator();
 
         while(var3.hasNext()) {
@@ -178,17 +182,17 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
 
     }
 
-    protected void saveAdditional(CompoundTag p_187452_) {
-        super.saveAdditional(p_187452_);
-        p_187452_.putInt("BurnTime", this.litTime);
-        p_187452_.putInt("CookTime", this.cookingProgress);
-        p_187452_.putInt("CookTimeTotal", this.cookingTotalTime);
-        ContainerHelper.saveAllItems(p_187452_, this.items);
+    protected void saveAdditional(CompoundTag compoundTagIN) {
+        super.saveAdditional(compoundTagIN);
+        ContainerHelper.saveAllItems(compoundTagIN, this.items);
+        compoundTagIN.putInt("BurnTime", this.litTime);
+        compoundTagIN.putInt("CookTime", this.cookingProgress);
+        compoundTagIN.putInt("CookTimeTotal", this.cookingTotalTime);
         CompoundTag compoundtag = new CompoundTag();
         this.recipesUsed.forEach((p_187449_, p_187450_) -> {
             compoundtag.putInt(p_187449_.toString(), p_187450_);
         });
-        p_187452_.put("RecipesUsed", compoundtag);
+        compoundTagIN.put("RecipesUsed", compoundtag);
     }
 
     public boolean isLit(Level level, AbstractHellforgeBE blockEntity) {
@@ -200,6 +204,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         }
     }
     //Moved the fuel ticker outside of the serverTick method so I could tinker with it.
+
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
         if (blockEntity.cookingProgress > 0) {
             --blockEntity.litTime;
