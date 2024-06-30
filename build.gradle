@@ -5,7 +5,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = '1.2.5-1.20.1'
+version = '1.2.6-1.20.1'
 group = 'net.hydraoc.mtetm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'mtetm'
 

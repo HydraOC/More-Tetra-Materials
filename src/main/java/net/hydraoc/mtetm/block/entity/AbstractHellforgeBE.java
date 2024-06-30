@@ -274,6 +274,15 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             }
         }
 
+        if (flag != blockEntity.isLit(level, blockEntity)) {
+            flag1 = true;
+            blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit(level, blockEntity));
+            level.setBlock(pos, blockState, 3);
+        }
+
+        if (flag1) {
+            setChanged(level, pos, blockState);
+        }
     }
 
     public boolean canBurn(RegistryAccess registry, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> itemStacks, int p_155008_) {
