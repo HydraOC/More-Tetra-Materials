@@ -63,9 +63,7 @@ import se.mickelus.tetra.items.cell.ThermalCellItem;
 //This code is edited from the AbstractFurnaceBlockEntity code from vanilla.
 public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
 
-    private static int maxSmeltableItems = 256;
-    public static final int maxStoredEnergy = maxSmeltableItems*200; //Ticks of total storable thermal energy
-    private static int tick;
+    public static final int maxStoredEnergy = 51200; //Ticks of total storable thermal energy
     protected static final int SLOT_INPUT = 0;
     protected static final int SLOT_FUEL = 1;
     protected static final int SLOT_RESULT = 2;
@@ -240,7 +238,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         }
 
         if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && ThermalCellItem.getCharge(itemstack) != 1){
-            blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*(maxSmeltableItems/2);
+            blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*(maxStoredEnergy/256);
             blockEntity.litDuration = maxStoredEnergy;
             ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack));
         }
