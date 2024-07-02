@@ -63,7 +63,7 @@ import se.mickelus.tetra.items.cell.ThermalCellItem;
 //This code is edited from the AbstractFurnaceBlockEntity code from vanilla.
 public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
 
-    private static int maxSmeltableItems = 64;
+    private static int maxSmeltableItems = 256;
     public static final int maxStoredEnergy = maxSmeltableItems*200; //Ticks of total storable thermal energy
     private static int tick;
     protected static final int SLOT_INPUT = 0;
@@ -210,7 +210,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     //Moved the fuel ticker outside of the serverTick method so I could tinker with it.
 
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
-        if (blockEntity.cookingProgress > 0 && tick%2==0) {
+        if (blockEntity.cookingProgress > 0) {
             --blockEntity.litTime;
         }
     }
@@ -221,11 +221,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         double adjustZ = (double)pos.getZ() + 0.5;
         boolean flag = blockEntity.isLit(level, blockEntity);
         boolean flag1 = false;
-
-        tick++;
-        if(tick > 2){
-            tick = 1;
-        }
         fuelTicker(blockEntity);
 
         ItemStack itemstack = (ItemStack)blockEntity.items.get(1);
