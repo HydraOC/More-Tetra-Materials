@@ -1,6 +1,7 @@
 package net.hydraoc.mtetm.menus;
 
 import net.hydraoc.mtetm.block.ModBlocks;
+import net.hydraoc.mtetm.block.entity.AbstractHellforgeBE;
 import net.hydraoc.mtetm.block.entity.HellforgeBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,7 +19,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public HellforgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(6));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     public HellforgeMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -35,7 +36,6 @@ public class HellforgeMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(iItemHandler, 0, 31, 30)); //Input Slot
             this.addSlot(new SlotItemHandler(iItemHandler, 1, 144, 56)); //Fuel Slot
             this.addSlot(new SlotItemHandler(iItemHandler, 2, 91,30)); //Output Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 3, 91000,55000)); //By-product Slot
         });
 
         addDataSlots(data);
@@ -58,11 +58,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
 
     //Returns the fuel bar
     public int getLitProgress() {
-        int i = this.data.get(1);
-        if (i == 0) {
-            i = 200;
-        }
-        return this.data.get(0) * 36 / i;
+        return (this.data.get(0)*36) / (AbstractHellforgeBE.maxStoredEnergy);
     }
 
     public boolean isLit() {
@@ -77,7 +73,7 @@ public class HellforgeMenu extends AbstractContainerMenu {
     private static final int TE_INV_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOTS;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INV_SLOTS = 4;  // must be the number of slots you have!
+    private static final int TE_INV_SLOTS = 3;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);

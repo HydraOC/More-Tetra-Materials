@@ -62,12 +62,16 @@ import se.mickelus.tetra.items.cell.ThermalCellItem;
 
 //This code is edited from the AbstractFurnaceBlockEntity code from vanilla.
 public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
+
+    private static int maxSmeltableItems = 64;
+    public static final int maxStoredEnergy = maxSmeltableItems*200; //Ticks of total storable thermal energy
+    private static int tick;
     protected static final int SLOT_INPUT = 0;
     protected static final int SLOT_FUEL = 1;
     protected static final int SLOT_RESULT = 2;
     public static final int DATA_LIT_TIME = 0;
     private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{3, 2, 1};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
     public static final int DATA_LIT_DURATION = 1;
     public static final int DATA_COOKING_PROGRESS = 2;
@@ -79,7 +83,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     private final RecipeType<? extends AbstractCookingRecipe> secondRecipeType;
     public NonNullList<ItemStack> items;
     public int litTime;
-    public int litDuration = 51200;
+    public int litDuration = maxStoredEnergy;
     public int cookingProgress;
     public int cookingTotalTime;
     protected final ContainerData dataAccess;
@@ -171,7 +175,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         this.litTime = compoundTagIN.getInt("BurnTime");
         this.cookingProgress = compoundTagIN.getInt("CookTime");
         this.cookingTotalTime = compoundTagIN.getInt("CookTimeTotal");
-        this.litDuration = 51200;
+        this.litDuration = maxStoredEnergy;
         CompoundTag compoundtag = compoundTagIN.getCompound("RecipesUsed");
         Iterator var3 = compoundtag.getAllKeys().iterator();
 
@@ -206,7 +210,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     //Moved the fuel ticker outside of the serverTick method so I could tinker with it.
 
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
-        if (blockEntity.cookingProgress > 0) {
+        if (blockEntity.cookingProgress > 0 && tick%2==0) {
             --blockEntity.litTime;
         }
     }
@@ -217,6 +221,11 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         double adjustZ = (double)pos.getZ() + 0.5;
         boolean flag = blockEntity.isLit(level, blockEntity);
         boolean flag1 = false;
+
+        tick++;
+        if(tick > 2){
+            tick = 1;
+        }
         fuelTicker(blockEntity);
 
         ItemStack itemstack = (ItemStack)blockEntity.items.get(1);
@@ -236,10 +245,9 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         }
 
         if (blockEntity.litTime < blockEntity.litDuration-ThermalCellItem.getCharge(itemstack) && ThermalCellItem.getCharge(itemstack) != 1){
-            blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*200;
-            blockEntity.litDuration = 51200;
+            blockEntity.litTime = blockEntity.litTime + ThermalCellItem.getCharge(itemstack)*(maxSmeltableItems/2);
+            blockEntity.litDuration = maxStoredEnergy;
             ThermalCellItem.drainCharge(itemstack, ThermalCellItem.getCharge(itemstack));
-            level.playLocalSound(adjustX, adjustY, adjustZ, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F, false);
         }
 
         if (!blockEntity.isLit(level, blockEntity) && (!flag3 || !flag2)) {
@@ -274,15 +282,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
             }
         }
 
-        if (flag != blockEntity.isLit(level, blockEntity)) {
-            flag1 = true;
-            blockState = (BlockState)blockState.setValue(AbstractFurnaceBlock.LIT, blockEntity.isLit(level, blockEntity));
-            level.setBlock(pos, blockState, 3);
-        }
-
-        if (flag1) {
-            setChanged(level, pos, blockState);
-        }
     }
 
     public boolean canBurn(RegistryAccess registry, @Nullable Recipe<AbstractHellforgeBE> recipe, NonNullList<ItemStack> itemStacks, int p_155008_) {

@@ -23,7 +23,7 @@ public class HellforgeBlockEntity extends AbstractHellforgeBE {
         return Component.translatable("container.hellforge");
     }
 
-    protected AbstractContainerMenu createMenu(int p_59293_, Inventory inv) {
+    protected HellforgeMenu createMenu(int p_59293_, Inventory inv) {
         return new HellforgeMenu(p_59293_, inv, this, this.dataAccess);
     }
 

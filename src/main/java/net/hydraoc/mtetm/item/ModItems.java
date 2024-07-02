@@ -74,6 +74,9 @@ public class ModItems {
     public static final RegistryObject<Item> ENDER_PEARL_DUST = ITEMS.register("ender_pearl_dust",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> SOUL_STEEL = ITEMS.register("soul_steel",
+            () -> new Item(new Item.Properties()));
+
 
 
     //public static final RegistryObject<Item> MITHRIL_PICKAXE = ITEMS.register("mithril_pickaxe", () -> new PickaxeItem(ModToolTiers.MITHRIL, 1, 1, new Item.Properties()));
