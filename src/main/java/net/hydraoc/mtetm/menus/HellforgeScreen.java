@@ -66,10 +66,8 @@ public class HellforgeScreen extends AbstractContainerScreen<HellforgeMenu> {
         if(menu.isLit()) {
             guiGraphics.blit(TEXTURE, x + 148, y + 7, 171, 7, 1, 3);
             guiGraphics.blit(TEXTURE, x + 135, y + 37, 171, 11, 5, 1);
-            if(menu.isLit() || (menu.getSlot(2).hasItem() && menu.getSlot(0).hasItem())) {
+            if((this.menu).getSlot(0).hasItem() || (this.menu).getBurnProgress() > 0) {
                 guiGraphics.blit(TEXTURE, x + 114, y + 34, 177, 5, 17, 7);
-            }else{
-                guiGraphics.blit(TEXTURE, x + 114, y + 34, 114, 34, 17, 7);
             }
         }
     }

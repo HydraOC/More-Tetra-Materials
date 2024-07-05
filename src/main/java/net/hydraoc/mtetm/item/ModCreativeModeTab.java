@@ -55,6 +55,8 @@ public class ModCreativeModeTab {
                         //pOutput.accept(ModItems.ADAMANTIUM_PICKAXE.get());
 
                         pOutput.accept(ModBlocks.HELLFORGE.get());
+
+                        pOutput.accept(ModItems.SOUL_STEEL_INGOT.get());
                     })
                     .build());
 

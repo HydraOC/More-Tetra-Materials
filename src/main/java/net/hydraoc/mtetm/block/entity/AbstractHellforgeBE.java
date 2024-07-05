@@ -63,7 +63,8 @@ import se.mickelus.tetra.items.cell.ThermalCellItem;
 //This code is edited from the AbstractFurnaceBlockEntity code from vanilla.
 public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity implements WorldlyContainer, RecipeHolder, StackedContentsCompatible {
 
-    public static final int maxStoredEnergy = 51200; //Ticks of total storable thermal energy
+    private static int tick = 1;
+    public static final int maxStoredEnergy = 51200/2; //Ticks of total storable thermal energy
     protected static final int SLOT_INPUT = 0;
     protected static final int SLOT_FUEL = 1;
     protected static final int SLOT_RESULT = 2;
@@ -208,7 +209,7 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
     //Moved the fuel ticker outside of the serverTick method so I could tinker with it.
 
     public static void fuelTicker(AbstractHellforgeBE blockEntity){
-        if (blockEntity.cookingProgress > 0) {
+        if (blockEntity.cookingProgress > 0 && tick%2==0) {
             --blockEntity.litTime;
         }
     }
@@ -219,6 +220,10 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         double adjustZ = (double)pos.getZ() + 0.5;
         boolean flag = blockEntity.isLit(level, blockEntity);
         boolean flag1 = false;
+        tick++;
+        if(tick > 2){
+            tick = 1;
+        }
         fuelTicker(blockEntity);
 
         ItemStack itemstack = (ItemStack)blockEntity.items.get(1);
@@ -354,7 +359,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         } else {
             return true;
         }
-        System.out.println(itemStack.getDamageValue());
         return false;
     }
 
@@ -485,7 +489,6 @@ public abstract class AbstractHellforgeBE extends BaseContainerBlockEntity imple
         if (f != 0.0F && Math.random() < (double)f) {
             ++i;
         }
-
         ExperienceOrb.award(p_154999_, p_155000_, i);
     }
 
