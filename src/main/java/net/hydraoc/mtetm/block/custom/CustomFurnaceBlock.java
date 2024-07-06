@@ -2,20 +2,20 @@ package net.hydraoc.mtetm.block.custom;
 
 import net.hydraoc.mtetm.block.entity.HellforgeBlockEntity;
 import net.hydraoc.mtetm.block.entity.ModBlockEntities;
-import net.hydraoc.mtetm.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,11 +24,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class HellforgeBlock extends AbstractCFB {
+public class CustomFurnaceBlock extends AbstractCFB {
 
-    public HellforgeBlock(BlockBehaviour.Properties p_53627_) {
+    private final String tooltip;
+
+    public CustomFurnaceBlock(BlockBehaviour.Properties p_53627_, String tooltipTranslatable) {
         super(p_53627_);
+        this.tooltip = tooltipTranslatable;
     }
 
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
@@ -38,6 +42,12 @@ public class HellforgeBlock extends AbstractCFB {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState p_153274_, BlockEntityType<T> betype) {
         return createFurnaceTicker(level, betype, ModBlockEntities.HELLFORGE_BE.get());
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter p_49817_, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        pTooltipComponents.add(Component.translatable(tooltip));
+        super.appendHoverText(pStack, p_49817_, pTooltipComponents, pIsAdvanced);
     }
 
     public void openContainer(Level level, BlockPos pos, Player player) {

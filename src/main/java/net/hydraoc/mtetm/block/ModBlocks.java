@@ -1,7 +1,7 @@
 package net.hydraoc.mtetm.block;
 
 import net.hydraoc.mtetm.MoreTetraMaterials;
-import net.hydraoc.mtetm.block.custom.HellforgeBlock;
+import net.hydraoc.mtetm.block.custom.CustomFurnaceBlock;
 import net.hydraoc.mtetm.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -77,7 +77,12 @@ public class ModBlocks {
                     .strength(8,1200f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
 
     public static final RegistryObject<Block> HELLFORGE = registerBlock("hellforge",
-            () -> new HellforgeBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13))));
+            () -> new CustomFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13)),
+                    "tooltip.mtetm.hellforge"));
+
+    public static final RegistryObject<Block> ALLOY_MACHINE = registerBlock("alloy_machine",
+            () -> new CustomFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13)),
+                    "tooltip.mtetm.alloy_machine"));
 
     public static final RegistryObject<Block> SMASHING_ICON = registerBlock("smashing_icon.json",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion()));
