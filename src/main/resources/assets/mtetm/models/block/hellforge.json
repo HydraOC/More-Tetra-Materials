@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "front": "mtetm:block/hellforge_front",
-    "side": "mtetm:block/hellforge_side",
-    "top": "mtetm:block/hellforge_top",
+    "front": "mtetm:block/hellforge/hellforge_front",
+    "side": "mtetm:block/hellforge/hellforge_side",
+    "top": "mtetm:block/hellforge/hellforge_top",
     "bottom":"minecraft:block/netherite_block"
   }
 }
