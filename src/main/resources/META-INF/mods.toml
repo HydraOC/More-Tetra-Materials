@@ -66,7 +66,7 @@ mandatory=true #mandatory
 # The version range of the dependency
 versionRange="[6.3.0,)" #mandatory
 # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
-ordering="NONE"
+ordering="AFTER"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side="BOTH"
 
@@ -78,7 +78,7 @@ mandatory=true #mandatory
 # The version range of the dependency
 versionRange="[6.1.1,)" #mandatory
 # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
-ordering="NONE"
+ordering="AFTER"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side="BOTH"
 
