@@ -1,0 +1,79 @@
+{
+  "creativetab.mtetm_item_tab": "More Tetra Materials",
+
+  "item.mtetm.mithril_ingot": "Barra de Mithril",
+  "item.mtetm.raw_mithril": "Mithril Bruto",
+  "item.mtetm.mithril_nugget": "Pepita de Mithril",
+  "item.mtetm.mithril_dust": "Pó de Mithril",
+  "block.mtetm.mithril_block": "Bloco de Mithril",
+  "block.mtetm.raw_mithril_block": "Bloco de Mithril Bruto",
+  "block.mtetm.mithril_ore": "Minério de Mithril",
+  "block.mtetm.deepslate_mithril_ore": "Minério de Mithril de Ardósia",
+
+  "item.mtetm.adamantium_ingot": "Barra de Adamantium",
+  "item.mtetm.adamantium_nugget": "Pepita de Adamantium",
+  "item.mtetm.adamantium_dust": "Pó de Adamantium",
+  "item.mtetm.raw_adamantium": "Adamantium Bruto",
+  "block.mtetm.adamantium_block": "Bloco de Adamantium",
+  "block.mtetm.raw_adamantium_block": "Bloco de Adamantium Bruto",
+  "block.mtetm.adamantium_ore": "Minério de Adamantium",
+
+  "item.mtetm.enderfused_adamantium_ingot": "Barra de Adamantium de Ender",
+  "item.mtetm.enderfused_adamantium_nugget": "Pepita de Adamantium de Ender",
+  "item.mtetm.enderfused_adamantium_dust": "Pó de Adamantium de Ender",
+  "block.mtetm.enderfused_adamantium_block": "Bloco de Adamantium de Ender",
+
+  "item.mtetm.pandorium_ingot": "Barra de Pandorium",
+  "item.mtetm.pandorium_nugget": "Pepita de Pandorium",
+  "item.mtetm.pandorium_dust": "Pó de Pandorium",
+  "item.mtetm.raw_pandorium": "Pandorium Bruto",
+  "block.mtetm.pandorium_block": "Bloco de Pandorium",
+  "block.mtetm.raw_pandorium_block": "Bloco de Pandorium Bruto",
+  "block.mtetm.pandorium_ore": "Minério de Pandorium",
+
+  "block.mtetm.blood_emerald_ore": "Minério de Escarlite",
+  "block.mtetm.blood_emerald_block": "Bloco de Escarlite",
+  "item.mtetm.blood_emerald": "Escarlite",
+  "item.mtetm.blood_emerald_dust": "Pó de Escarlite",
+
+  "item.mtetm.ender_pearl_dust": "Pó de Pérola de Ender",
+
+  "tetra.material.mithril": "Mithril",
+  "tetra.material.mithril.prefix": "Mithril",
+  "tetra.material.adamantium": "Adamantium",
+  "tetra.material.adamantium.prefix": "Adamantium",
+  "tetra.material.enderfused_adamantium": "Adamantium de Ender",
+  "tetra.material.enderfused_adamantium.prefix": "Adamantium de Ender",
+  "tetra.material.pandorium": "Pandorium",
+  "tetra.material.pandorium.prefix": "Pandorium",
+
+  "tetra.material.blood_emerald": "Escarlite",
+  "tetra.material.blood_emerald.prefix": "Escarlite",
+  "tetra.material.quartz": "Quartzo",
+  "tetra.material.quartz.prefix": "Quartzo",
+  "tetra.material.charged_quartz": "Quartzo Carregado",
+  "tetra.material.charged_quartz.prefix": "Quartzo Carregado",
+
+  "tetra.smash_mithril_ingot_action.label": "Pulverizar",
+  "tetra.smash_adamantium_ingot_action.label": "Pulverizar",
+  "tetra.smash_blood_emerald_action.label": "Pulverizar",
+  "tetra.smash_pandorium_ingot_action.label": "Pulverizar",
+  "tetra.smash_enderfused_adamantium_ingot_action.label": "Pulverizar",
+  "tetra.smash_ender_pearl_action.label": "Pulverizar",
+
+  "tetra.material.socket_blood_emerald": "Encaixe de Escarlite",
+  "tetra.material.socket_blood_emerald.prefix": "§cEscarlite§r",
+
+  "tetra.material.socket_charged_quartz": "Encaixe de Quartzo Carregado",
+  "tetra.material.socket_charged_quartz.prefix": "§bQuartzo Carregado§r",
+
+  "tetra.material.socket_rose_quartz": "Encaixe de Quartzo Rosa",
+  "tetra.material.socket_rose_quartz.prefix": "§dQuartzo Rosa§r",
+
+  "block.mtetm.hellforge": "Forja Infernal",
+  "container.hellforge": "Forja Infernal",
+
+  "sounds.mtetm.hellforge_lit": "Fusão na Forja Infernal",
+  "block.mtetm.hell_smelting_jei": "Fusão Infernal",
+  "block.mtetm.smashing_jei": "Esmagamento de Material"
+}
