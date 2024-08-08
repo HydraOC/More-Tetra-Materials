@@ -31,14 +31,14 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(6f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RAW_MITHRIL_BLOCK = registerBlock("raw_mithril_block",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .strength(6f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(6f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MITHRIL_ORE = registerBlock("mithril_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> DEEPSLATE_MITHRIL_ORE = registerBlock("deepslate_mithril_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.DEEPSLATE)
-                    .strength(6f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.DEEPSLATE)
+                    .strength(6f).requiresCorrectToolForDrops()));
 
 
     public static final RegistryObject<Block> ADAMANTIUM_BLOCK = registerBlock("adamantium_block",
@@ -48,8 +48,8 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(8,1200f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ADAMANTIUM_ORE = registerBlock("adamantium_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.GILDED_BLACKSTONE)
-                    .strength(8,1200f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.GILDED_BLACKSTONE)
+                    .strength(8,1200f).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ENDERFUSED_ADAMNTIUM_BLOCK = registerBlock("enderfused_adamantium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.NETHERITE_BLOCK)
@@ -66,8 +66,8 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(8,1200f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> PANDORIUM_ORE = registerBlock("pandorium_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .strength(8,1200f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(8,1200f).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> BLOOD_EMERALD_BLOCK = registerBlock("blood_emerald_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
