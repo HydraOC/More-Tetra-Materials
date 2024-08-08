@@ -56,7 +56,7 @@ public class ModCreativeModeTab {
 
                         pOutput.accept(ModBlocks.HELLFORGE.get());
 
-                        pOutput.accept(ModItems.SOUL_STEEL_INGOT.get());
+                        //pOutput.accept(ModItems.SOUL_STEEL_INGOT.get());
                     })
                     .build());
 

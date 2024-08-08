@@ -23,6 +23,6 @@
         "items": [ "mtetm:pandorium_ingot" ]
     },
     "requiredTools": {
-        "hammer_dig": "mtetm:mithril"
+        "hammer_dig": "mtetm:adamantium"
     }
 }

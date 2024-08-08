@@ -28,7 +28,7 @@
                 "bluntWeapon": 1
             },
             "tools": {
-                "hammer_dig": "minecraft:netherite"
+                "hammer_dig": "tetra:maxed_forge_hammer"
             },
             "integrity": -1,
             "extract": {
