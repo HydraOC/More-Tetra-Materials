@@ -21,42 +21,39 @@ public class ModCreativeModeTab {
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModBlocks.MITHRIL_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_MITHRIL_ORE.get());
-                        pOutput.accept(ModItems.RAW_MITHRIL.get());
-                        pOutput.accept(ModItems.MITHRIL_DUST.get());
-                        pOutput.accept(ModItems.MITHRIL_INGOT.get());
-                        pOutput.accept(ModBlocks.RAW_MITHRIL_BLOCK.get());
-                        pOutput.accept(ModBlocks.MITHRIL_BLOCK.get());
-
+                        pOutput.accept(ModBlocks.BLOOD_EMERALD_ORE.get());
                         pOutput.accept(ModBlocks.ADAMANTIUM_ORE.get());
-                        pOutput.accept(ModItems.RAW_ADAMANTIUM.get());
-                        pOutput.accept(ModItems.ADAMANTIUM_DUST.get());
-                        pOutput.accept(ModItems.ADAMANTIUM_INGOT.get());
-                        pOutput.accept(ModBlocks.RAW_ADAMANTIUM_BLOCK.get());
-                        pOutput.accept(ModBlocks.ADAMANTIUM_BLOCK.get());
-
                         pOutput.accept(ModBlocks.PANDORIUM_ORE.get());
-                        pOutput.accept(ModItems.RAW_PANDORIUM.get());
-                        pOutput.accept(ModItems.PANDORIUM_DUST.get());
-                        pOutput.accept(ModItems.PANDORIUM_INGOT.get());
-                        pOutput.accept(ModBlocks.RAW_PANDORIUM_BLOCK.get());
-                        pOutput.accept(ModBlocks.PANDORIUM_BLOCK.get());
 
+                        pOutput.accept(ModItems.RAW_MITHRIL.get());
+                        pOutput.accept(ModBlocks.RAW_MITHRIL_BLOCK.get());
+                        pOutput.accept(ModItems.RAW_ADAMANTIUM.get());
+                        pOutput.accept(ModBlocks.RAW_ADAMANTIUM_BLOCK.get());
+                        pOutput.accept(ModItems.RAW_PANDORIUM.get());
+                        pOutput.accept(ModBlocks.RAW_PANDORIUM_BLOCK.get());
+
+                        pOutput.accept(ModItems.MITHRIL_DUST.get());
+                        pOutput.accept(ModItems.BLOOD_EMERALD_DUST.get());
+                        pOutput.accept(ModItems.ADAMANTIUM_DUST.get());
+                        pOutput.accept(ModItems.PANDORIUM_DUST.get());
                         pOutput.accept(ModItems.ENDER_PEARL_DUST.get());
                         pOutput.accept(ModItems.ENDERFUSED_ADAMANTIUM_DUST.get());
+
+                        pOutput.accept(ModItems.MITHRIL_INGOT.get());
+                        pOutput.accept(ModBlocks.MITHRIL_BLOCK.get());
+                        pOutput.accept(ModItems.BLOOD_EMERALD.get());
+                        pOutput.accept(ModBlocks.BLOOD_EMERALD_BLOCK.get());
+                        pOutput.accept(ModItems.ADAMANTIUM_INGOT.get());
+                        pOutput.accept(ModBlocks.ADAMANTIUM_BLOCK.get());
+                        pOutput.accept(ModItems.PANDORIUM_INGOT.get());
+                        pOutput.accept(ModBlocks.PANDORIUM_BLOCK.get());
                         pOutput.accept(ModItems.ENDERFUSED_ADAMANTIUM_INGOT.get());
                         pOutput.accept(ModBlocks.ENDERFUSED_ADAMNTIUM_BLOCK.get());
 
-                        pOutput.accept(ModBlocks.BLOOD_EMERALD_ORE.get());
-                        pOutput.accept(ModItems.BLOOD_EMERALD_DUST.get());
-                        pOutput.accept(ModItems.BLOOD_EMERALD.get());
-                        pOutput.accept(ModBlocks.BLOOD_EMERALD_BLOCK.get());
-
-                        //pOutput.accept(ModItems.MITHRIL_PICKAXE.get());
-                        //pOutput.accept(ModItems.ADAMANTIUM_PICKAXE.get());
-
                         pOutput.accept(ModBlocks.HELLFORGE.get());
+                        pOutput.accept(ModBlocks.ALLOYFORGE.get());
 
-                        //pOutput.accept(ModItems.SOUL_STEEL_INGOT.get());
+                        pOutput.accept(ModItems.SOUL_STEEL_INGOT.get());
                     })
                     .build());
 

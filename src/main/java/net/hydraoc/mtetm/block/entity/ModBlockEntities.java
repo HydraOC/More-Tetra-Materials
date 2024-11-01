@@ -17,6 +17,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(HellforgeBlockEntity::new,
                             ModBlocks.HELLFORGE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AlloyForgeBlockEntity>> ALLOYFORGE_BE =
+            BLOCK_ENTITIES.register("alloyforge_be", () ->
+                    BlockEntityType.Builder.of(AlloyForgeBlockEntity::new,
+                            ModBlocks.ALLOYFORGE.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }

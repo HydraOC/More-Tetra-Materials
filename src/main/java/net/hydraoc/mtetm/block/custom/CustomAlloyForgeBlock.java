@@ -1,6 +1,7 @@
 package net.hydraoc.mtetm.block.custom;
 
-import net.hydraoc.mtetm.block.entity.HellforgeBlockEntity;
+import net.hydraoc.mtetm.block.entity.AbstractAlloyForgeBE;
+import net.hydraoc.mtetm.block.entity.AlloyForgeBlockEntity;
 import net.hydraoc.mtetm.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,29 +20,28 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class CustomFurnaceBlock extends AbstractHellforgeBlock {
+public class CustomAlloyForgeBlock extends AbstractAlloyForgeBlock {
 
     private final String tooltip;
 
-    public CustomFurnaceBlock(BlockBehaviour.Properties p_53627_, String tooltipTranslatable) {
+    public CustomAlloyForgeBlock(Properties p_53627_, String tooltipTranslatable) {
         super(p_53627_);
         this.tooltip = tooltipTranslatable;
     }
 
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new HellforgeBlockEntity(pos, state);
+        return new AlloyForgeBlockEntity(pos, state);
     }
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState p_153274_, BlockEntityType<T> betype) {
-        return createFurnaceTicker(level, betype, ModBlockEntities.HELLFORGE_BE.get());
+        return createFurnaceTicker(level, betype, ModBlockEntities.ALLOYFORGE_BE.get());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CustomFurnaceBlock extends AbstractHellforgeBlock {
 
     public void openContainer(Level level, BlockPos pos, Player player) {
         BlockEntity $$3 = level.getBlockEntity(pos);
-        if ($$3 instanceof HellforgeBlockEntity) {
+        if ($$3 instanceof AlloyForgeBlockEntity) {
             NetworkHooks.openScreen((ServerPlayer) player, (MenuProvider)$$3, pos);
         }
     }

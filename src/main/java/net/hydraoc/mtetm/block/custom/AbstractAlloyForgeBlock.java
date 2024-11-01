@@ -1,5 +1,6 @@
 package net.hydraoc.mtetm.block.custom;
 
+import net.hydraoc.mtetm.block.entity.AbstractAlloyForgeBE;
 import net.hydraoc.mtetm.block.entity.AbstractHellforgeBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +22,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,13 +33,12 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.ToIntFunction;
 
-public abstract class AbstractCFB extends Block implements EntityBlock {
+public abstract class AbstractAlloyForgeBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING;
     public static final BooleanProperty LIT;
 
-    protected AbstractCFB(BlockBehaviour.Properties p_49224_) {
+    protected AbstractAlloyForgeBlock(Properties p_49224_) {
         super(p_49224_);
     }
 
@@ -78,8 +77,8 @@ public abstract class AbstractCFB extends Block implements EntityBlock {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity livingEntity, ItemStack itemStack) {
         if (itemStack.hasCustomHoverName()) {
             BlockEntity $$5 = level.getBlockEntity(pos);
-            if ($$5 instanceof AbstractHellforgeBE) {
-                ((AbstractHellforgeBE)$$5).setCustomName(itemStack.getHoverName());
+            if ($$5 instanceof AbstractAlloyForgeBE) {
+                ((AbstractAlloyForgeBE)$$5).setCustomName(itemStack.getHoverName());
             }
         }
 
@@ -88,10 +87,10 @@ public abstract class AbstractCFB extends Block implements EntityBlock {
     public void onRemove(BlockState state1, Level level, BlockPos pos, BlockState state2, boolean p_48717_) {
         if (!state1.is(state2.getBlock())) {
             BlockEntity $$5 = level.getBlockEntity(pos);
-            if ($$5 instanceof AbstractHellforgeBE) {
+            if ($$5 instanceof AbstractAlloyForgeBE) {
                 if (level instanceof ServerLevel) {
-                    Containers.dropContents(level, pos, (AbstractHellforgeBE)$$5);
-                    ((AbstractHellforgeBE)$$5).getRecipesToAwardAndPopExperience((ServerLevel)level, Vec3.atCenterOf(pos));
+                    Containers.dropContents(level, pos, (AbstractAlloyForgeBE)$$5);
+                    ((AbstractAlloyForgeBE)$$5).getRecipesToAwardAndPopExperience((ServerLevel)level, Vec3.atCenterOf(pos));
                 }
 
                 level.updateNeighbourForOutputSignal(pos, this);
@@ -126,8 +125,8 @@ public abstract class AbstractCFB extends Block implements EntityBlock {
     }
 
     @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> createFurnaceTicker(Level level, BlockEntityType<T> p_151989_, BlockEntityType<? extends AbstractHellforgeBE> p_151990_) {
-        return level.isClientSide ? null : createTickerHelper(p_151989_, p_151990_, AbstractHellforgeBE::serverTick);
+    protected static <T extends BlockEntity> BlockEntityTicker<T> createFurnaceTicker(Level level, BlockEntityType<T> p_151989_, BlockEntityType<? extends AbstractAlloyForgeBE> p_151990_) {
+        return level.isClientSide ? null : createTickerHelper(p_151989_, p_151990_, AbstractAlloyForgeBE::serverTick);
     }
 
     static {

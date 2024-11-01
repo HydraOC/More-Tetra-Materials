@@ -57,8 +57,8 @@ public class ModItems {
     public static final RegistryObject<Item> ENDER_PEARL_DUST = ITEMS.register("ender_pearl_dust",
             () -> new Item(new Item.Properties()));
 
-    //public static final RegistryObject<Item> SOUL_STEEL_INGOT = ITEMS.register("soul_steel_ingot",
-            //() -> new ItemWTooltip(new Item.Properties(), "tooltip.mtetm.soul_steel"));
+    public static final RegistryObject<Item> SOUL_STEEL_INGOT = ITEMS.register("soul_steel_ingot",
+            () -> new ItemWTooltip(new Item.Properties(), "tooltip.mtetm.soul_steel"));
 
 
     public static void register(IEventBus eventBus) {

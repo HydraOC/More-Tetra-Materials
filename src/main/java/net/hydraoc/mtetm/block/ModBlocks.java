@@ -80,9 +80,9 @@ public class ModBlocks {
             () -> new CustomFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13)),
                     "tooltip.mtetm.hellforge"));
 
-    public static final RegistryObject<Block> ALLOY_MACHINE = registerBlock("alloy_machine",
+    public static final RegistryObject<Block> ALLOYFORGE = registerBlock("alloy_forge",
             () -> new CustomFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13)),
-                    "tooltip.mtetm.alloy_machine"));
+                    "tooltip.mtetm.alloy_forge"));
 
     public static final RegistryObject<Block> SMASHING_ICON = registerBlock("smashing_icon.json",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion()));
