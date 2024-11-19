@@ -1,0 +1,14 @@
+[
+  {
+    "key":"open_nether_geode_action",
+    "requirement":{
+      "items":[
+        "mtetm:nether_geode"
+      ]
+    },
+    "requiredTools":{
+      "hammer_dig":"minecraft:diamond"
+    },
+    "lootTable":"tetra:actions/open_nether_geode"
+  }
+]

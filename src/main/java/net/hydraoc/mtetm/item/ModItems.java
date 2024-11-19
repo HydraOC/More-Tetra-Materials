@@ -52,13 +52,21 @@ public class ModItems {
 
     public static final RegistryObject<Item> ENDERFUSED_ADAMANTIUM_DUST = ITEMS.register("enderfused_adamantium_dust",
             () -> new Item(new Item.Properties()));
-    
 
     public static final RegistryObject<Item> ENDER_PEARL_DUST = ITEMS.register("ender_pearl_dust",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> SOUL_STEEL_INGOT = ITEMS.register("soul_steel_ingot",
             () -> new ItemWTooltip(new Item.Properties(), "tooltip.mtetm.soul_steel"));
+
+    public static final RegistryObject<Item> SOUL_STEEL_DUST = ITEMS.register("soul_steel_dust",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> SOUL_QUARTZ_CRYSTAL = ITEMS.register("soul_quartz_crystal",
+            () -> new ItemWTooltip(new Item.Properties(), "tooltip.mtetm.soul_quartz_crystal"));
+
+    public static final RegistryObject<Item> NETHER_GEODE = ITEMS.register("nether_geode",
+            () -> new Item(new Item.Properties()));
 
 
     public static void register(IEventBus eventBus) {

@@ -24,7 +24,6 @@ import java.util.List;
 public class MtetmJEIPlugin implements IModPlugin {
     public static final RecipeType<HellSmeltingRecipe> HELL_SMELTING = RecipeType.create(MoreTetraMaterials.MOD_ID, "hell_smelting", HellSmeltingRecipe.class);
     public static final RecipeType<SmashingRecipe> SMASHING = RecipeType.create(MoreTetraMaterials.MOD_ID, "smashing", SmashingRecipe.class);
-    public static final RecipeType<AlloySmeltingRecipe> ALLOY_SMELTING = RecipeType.create(MoreTetraMaterials.MOD_ID, "alloy_smelting", AlloySmeltingRecipe.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -47,8 +46,6 @@ public class MtetmJEIPlugin implements IModPlugin {
         List<SmashingRecipe> smashingRecipes = recipeManager.getAllRecipesFor(SmashingRecipe.Type.INSTANCE);
         registration.addRecipes(SmashingCategory.SMASHING_TYPE, smashingRecipes);
 
-        List<AlloySmeltingRecipe> alloySmeltingRecipes = recipeManager.getAllRecipesFor(AlloySmeltingRecipe.Type.INSTANCE);
-        registration.addRecipes(AlloySmeltingCategory.ALLOY_SMELTING_TYPE, alloySmeltingRecipes);
     }
 
     @Override
@@ -56,7 +53,6 @@ public class MtetmJEIPlugin implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.HELLFORGE.get()), RecipeTypes.BLASTING);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.HELLFORGE.get()), HELL_SMELTING);
         registry.addRecipeCatalyst(new ItemStack(BasicWorkbenchBlock.instance), SMASHING);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.ALLOYFORGE.get()), ALLOY_SMELTING);
     }
 
     @Override

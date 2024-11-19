@@ -80,9 +80,11 @@ public class ModBlocks {
             () -> new CustomFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13)),
                     "tooltip.mtetm.hellforge"));
 
-    public static final RegistryObject<Block> ALLOYFORGE = registerBlock("alloy_forge",
-            () -> new CustomFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion().lightLevel(litBlockEmission(13)),
-                    "tooltip.mtetm.alloy_forge"));
+    public static final RegistryObject<Block> NETHER_GEODE_BLOCK = registerBlock("nether_geode_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)));
+
+    public static final RegistryObject<Block> SOUL_QUARTZ_BLOCK = registerBlock("soul_quartz_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)));
 
     public static final RegistryObject<Block> SMASHING_ICON = registerBlock("smashing_icon.json",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion()));

@@ -1,0 +1,19 @@
+{
+  "pools":[
+    {
+      "name":"open_nether_geode",
+      "rolls":1,
+      "entries": [
+        {"type":"group","weight":16,"children":[
+          {"type":"minecraft:item","name":"minecraft:raw_gold","functions":[
+            {"function":"set_count","count":{"min":1,"max":1}},
+            {"function":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:ore_drops"}]},
+          {"type":"minecraft:item","name":"minecraft:quartz","functions":[
+            {"function":"set_count","count":{"min":1,"max":3}},
+            {"function":"minecraft:apply_bonus","enchantment":"minecraft:fortune","formula":"minecraft:ore_drops"}]}
+          ]},
+        {"type":"minecraft:item","name":"mtetm:soul_quartz_crystal","weight":2,"conditions":[{"condition":"tetra:random_chance_with_fortune","chance":0.05,"fortuneMultiplier":0.15}]}
+      ]
+    }
+  ]
+}
