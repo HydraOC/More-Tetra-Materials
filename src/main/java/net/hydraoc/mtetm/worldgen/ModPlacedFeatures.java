@@ -37,8 +37,8 @@ public class ModPlacedFeatures {
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(25))));
 
         register(context, NETHER_GEODE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.NETHER_GEODE_BLOCK_KEY),
-                ModOrePlacement.commonOrePlacement(6,
-                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(25))));
+                ModOrePlacement.commonOrePlacement(12,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(128))));
 
 
         register(context, PANDORIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.PANDORIUM_ORE_KEY),
