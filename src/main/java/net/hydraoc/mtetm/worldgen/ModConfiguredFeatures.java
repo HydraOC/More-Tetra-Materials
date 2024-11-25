@@ -24,6 +24,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLOOD_EMERALD_ORE_KEY = registerKey("blood_emerald_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PANDORIUM_ORE_KEY = registerKey("pandorium_ore");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> NETHER_GEODE_BLOCK_KEY = registerKey("nether_geode_block");
+
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -35,10 +37,18 @@ public class ModConfiguredFeatures {
                 OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_MITHRIL_ORE.get().defaultBlockState()));
 
         register(context, MITHRIL_ORE_KEY, Feature.ORE, new OreConfiguration(overworldSapphireOres, 3));
+
+
         register(context, ADAMANTIUM_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackReplacables,
-                ModBlocks.ADAMANTIUM_ORE.get().defaultBlockState(), 2));
+                ModBlocks.ADAMANTIUM_ORE.get().defaultBlockState(), 1));
+
         register(context, BLOOD_EMERALD_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackReplacables,
                 ModBlocks.BLOOD_EMERALD_ORE.get().defaultBlockState(), 2));
+
+        register(context, NETHER_GEODE_BLOCK_KEY, Feature.ORE, new OreConfiguration(netherrackReplacables,
+                ModBlocks.NETHER_GEODE_BLOCK.get().defaultBlockState(), 8));
+
+
         register(context, PANDORIUM_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables,
                 ModBlocks.PANDORIUM_ORE.get().defaultBlockState(), 3));
     }

@@ -40,7 +40,6 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.DEEPSLATE)
                     .strength(6f).requiresCorrectToolForDrops()));
 
-
     public static final RegistryObject<Block> ADAMANTIUM_BLOCK = registerBlock("adamantium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.NETHERITE_BLOCK)
                     .strength(8,1200f).requiresCorrectToolForDrops()));
@@ -54,10 +53,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> ENDERFUSED_ADAMNTIUM_BLOCK = registerBlock("enderfused_adamantium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.NETHERITE_BLOCK)
                     .strength(8,1200f).requiresCorrectToolForDrops()));
-
-    //public static final RegistryObject<Block> REINFORCED_ADAMANTIUM_BLOCK = registerBlock("reinforced_adamantium_block",
-            //() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.NETHERITE_BLOCK)
-                    //.strength(8,1200f).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PANDORIUM_BLOCK = registerBlock("pandorium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.NETHERITE_BLOCK)
@@ -84,7 +79,7 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)));
 
     public static final RegistryObject<Block> SOUL_QUARTZ_BLOCK = registerBlock("soul_quartz_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK)));
 
     public static final RegistryObject<Block> SMASHING_ICON = registerBlock("smashing_icon.json",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).noOcclusion()));

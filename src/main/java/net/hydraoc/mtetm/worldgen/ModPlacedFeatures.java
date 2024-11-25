@@ -18,21 +18,31 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ADAMANTIUM_ORE_PLACED_KEY = registerKey("adamantium_ore_placed");
     public static final ResourceKey<PlacedFeature> BLOOD_EMERALD_ORE_PLACED_KEY = registerKey("blood_emerald_ore_placed");
     public static final ResourceKey<PlacedFeature> PANDORIUM_ORE_PLACED_KEY = registerKey("pandorium_ore_placed");
+    public static final ResourceKey<PlacedFeature> NETHER_GEODE_PLACED_KEY = registerKey("nether_geode_block_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, MITHRIL_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.MITHRIL_ORE_KEY),
-                ModOrePlacement.commonOrePlacement(5,
+                ModOrePlacement.commonOrePlacement(2,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(20))));
+
+
         register(context, ADAMANTIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ADAMANTIUM_ORE_KEY),
-                ModOrePlacement.commonOrePlacement(5,
+                ModOrePlacement.commonOrePlacement(2,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(25))));
+
         register(context, BLOOD_EMERALD_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.BLOOD_EMERALD_ORE_KEY),
+                ModOrePlacement.commonOrePlacement(2,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(25))));
+
+        register(context, NETHER_GEODE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.NETHER_GEODE_BLOCK_KEY),
                 ModOrePlacement.commonOrePlacement(6,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(25))));
+
+
         register(context, PANDORIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.PANDORIUM_ORE_KEY),
-                ModOrePlacement.commonOrePlacement(8,
+                ModOrePlacement.commonOrePlacement(4,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(80))));
     }
 

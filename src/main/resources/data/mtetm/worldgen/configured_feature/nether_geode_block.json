@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "mtetm:blood_emerald_ore"
+          "Name": "mtetm:nether_geode_block"
         },
         "target": {
           "block": "minecraft:netherrack",

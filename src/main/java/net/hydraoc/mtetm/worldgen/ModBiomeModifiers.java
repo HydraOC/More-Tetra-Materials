@@ -17,6 +17,7 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_ADAMANTIUM_ORE = registerKey("add_adamantium_ore");
     public static final ResourceKey<BiomeModifier> ADD_BLOOD_EMERALD_ORE = registerKey("add_blood_emerald_ore");
     public static final ResourceKey<BiomeModifier> ADD_PANDORIUM_ORE = registerKey("add_pandorium_ore");
+    public static final ResourceKey<BiomeModifier> ADD_NETHER_GEODE = registerKey("add_nether_geode");
 
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
@@ -28,14 +29,22 @@ public class ModBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.MITHRIL_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
+
         context.register(ADD_ADAMANTIUM_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_NETHER),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ADAMANTIUM_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
+
         context.register(ADD_BLOOD_EMERALD_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_NETHER),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.BLOOD_EMERALD_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
+
+        context.register(ADD_NETHER_GEODE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_NETHER),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.NETHER_GEODE_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+
 
         context.register(ADD_PANDORIUM_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_END),

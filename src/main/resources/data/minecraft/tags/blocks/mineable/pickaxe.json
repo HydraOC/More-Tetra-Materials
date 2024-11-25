@@ -13,6 +13,8 @@
     "mtetm:raw_pandorium_block",
     "mtetm:pandorium_block",
     "mtetm:enderfused_adamantium_block",
-    "mtetm:hellforge"
+    "mtetm:hellforge",
+    "mtetm:soul_quartz_block",
+    "mtetm:nether_geode_block"
   ]
 }
