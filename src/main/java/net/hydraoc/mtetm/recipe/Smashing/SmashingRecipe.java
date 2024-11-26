@@ -1,9 +1,8 @@
-package net.hydraoc.mtetm.recipe;
+package net.hydraoc.mtetm.recipe.Smashing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.hydraoc.mtetm.MoreTetraMaterials;
-import net.hydraoc.mtetm.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,22 +12,17 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
-public class HellSmeltingRecipe implements Recipe<Container> {
+public class SmashingRecipe implements Recipe<Container> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack result;
     private final ResourceLocation id;
-    private final float experience;
-    private final int cookingtime;
 
-    public HellSmeltingRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id, float xp, int time) {
+    public SmashingRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id) {
         this.inputItems = inputItems;
         this.result = output;
         this.id = id;
-        this.experience = xp;
-        this.cookingtime = time;
     }
 
     @Override
@@ -62,36 +56,29 @@ public class HellSmeltingRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return SmashingRecipe.Serializer.INSTANCE;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return SmashingRecipe.Type.INSTANCE;
     }
 
     public NonNullList<Ingredient> getIngredients() {
         return inputItems;
     }
 
-    public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.HELLFORGE.get());
+    public static class Type implements RecipeType<SmashingRecipe> {
+        public static final SmashingRecipe.Type INSTANCE = new SmashingRecipe.Type();
+        public static final String ID = "smashing";
     }
 
-    public int getCookingTime() {return this.cookingtime;}
-    public float getExperience() {return this.experience;}
-
-    public static class Type implements RecipeType<HellSmeltingRecipe> {
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "helL_smelting";
-    }
-
-    public static class Serializer implements RecipeSerializer<HellSmeltingRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "hell_smelting");
+    public static class Serializer implements RecipeSerializer<SmashingRecipe> {
+        public static final SmashingRecipe.Serializer INSTANCE = new SmashingRecipe.Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "smashing");
 
         @Override
-        public HellSmeltingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public SmashingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
@@ -101,14 +88,12 @@ public class HellSmeltingRecipe implements Recipe<Container> {
             }
 
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
-            float experience = GsonHelper.getAsFloat(pSerializedRecipe, "experience", 0.0F);
-            int cooktime = GsonHelper.getAsInt(pSerializedRecipe, "cookingtime", 200);
 
-            return new HellSmeltingRecipe(inputs, output, pRecipeId, experience, cooktime);
+            return new SmashingRecipe(inputs, output, pRecipeId);
         }
 
         @Override
-        public @Nullable HellSmeltingRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public @Nullable SmashingRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
 
             for(int i = 0; i < inputs.size(); i++) {
@@ -116,13 +101,11 @@ public class HellSmeltingRecipe implements Recipe<Container> {
             }
 
             ItemStack output = pBuffer.readItem();
-            float experience = pBuffer.readFloat();
-            int cooktime = pBuffer.readInt();
-            return new HellSmeltingRecipe(inputs, output, pRecipeId, experience, cooktime);
+            return new SmashingRecipe(inputs, output, pRecipeId);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, HellSmeltingRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, SmashingRecipe pRecipe) {
             pBuffer.writeInt(pRecipe.inputItems.size());
 
             for (Ingredient ingredient : pRecipe.getIngredients()) {
@@ -130,8 +113,6 @@ public class HellSmeltingRecipe implements Recipe<Container> {
             }
 
             pBuffer.writeItemStack(pRecipe.getResultItem(null),false);
-            pBuffer.writeFloat(pRecipe.getExperience());
-            pBuffer.writeInt(pRecipe.getCookingTime());
         }
     }
 }

@@ -8,14 +8,15 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.hydraoc.mtetm.MoreTetraMaterials;
 import net.hydraoc.mtetm.block.ModBlocks;
-import net.hydraoc.mtetm.recipe.*;
+import net.hydraoc.mtetm.recipe.HellSmelting.HellSmeltingCategory;
+import net.hydraoc.mtetm.recipe.HellSmelting.HellSmeltingRecipe;
+import net.hydraoc.mtetm.recipe.Smashing.SmashingCategory;
+import net.hydraoc.mtetm.recipe.Smashing.SmashingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import se.mickelus.tetra.blocks.workbench.BasicWorkbenchBlock;
-import se.mickelus.tetra.blocks.forged.ForgedWorkbenchBlock;
 
 
 import java.util.List;

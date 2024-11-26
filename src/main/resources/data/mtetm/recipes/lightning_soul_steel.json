@@ -1,0 +1,21 @@
+{
+  "type": "mtetm:lightning_fusion",
+  "primaryIngredient": [
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "secondaryIngredient": [
+    {
+      "item": "minecraft:soul_sand"
+    }
+  ],
+  "catalyst": [
+    {
+      "item": "mtetm:soul_quartz_block"
+    }
+  ],
+  "result": {
+    "item": "mtetm:soul_steel_ingot"
+  }
+}
