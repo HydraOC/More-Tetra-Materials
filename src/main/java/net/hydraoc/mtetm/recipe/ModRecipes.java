@@ -22,8 +22,8 @@ public class ModRecipes {
     public static final RegistryObject<RecipeSerializer<SmashingRecipe>> SMASHING_SERIALIZER =
             SERIALIZERS.register("smashing", () -> SmashingRecipe.Serializer.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<LightningFusionRecipe>> LIGHTNING_SERIALIZER =
-            SERIALIZERS.register("lightning_fusion", () -> LightningFusionRecipe.Serializer.INSTANCE);
+    //public static final RegistryObject<RecipeSerializer<LightningFusionRecipe>> LIGHTNING_SERIALIZER =
+            //SERIALIZERS.register("lightning_fusion", () -> LightningFusionRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);

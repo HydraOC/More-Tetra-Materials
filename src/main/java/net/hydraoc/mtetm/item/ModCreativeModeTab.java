@@ -34,7 +34,6 @@ public class ModCreativeModeTab {
 
                         pOutput.accept(ModItems.MITHRIL_DUST.get());
                         pOutput.accept(ModItems.BLOOD_EMERALD_DUST.get());
-                        pOutput.accept(ModItems.SOUL_STEEL_DUST.get());
                         pOutput.accept(ModItems.ADAMANTIUM_DUST.get());
                         pOutput.accept(ModItems.PANDORIUM_DUST.get());
                         pOutput.accept(ModItems.ENDER_PEARL_DUST.get());

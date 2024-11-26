@@ -1,19 +1,13 @@
 package net.hydraoc.mtetm.events;
 
-import net.hydraoc.mtetm.MoreTetraMaterials;
+import net.hydraoc.mtetm.block.ModBlocks;
 import net.hydraoc.mtetm.item.ModItems;
-import net.hydraoc.mtetm.recipe.LightningFusion.LightningFusionRecipe;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -22,7 +16,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = "mtetm")
 public class LightningStrikeHandler {
@@ -38,19 +31,15 @@ public class LightningStrikeHandler {
         Block struckBlock = level.getBlockState(struckBlockPos).getBlock();
         Block struckBlockBelow = level.getBlockState(struckBlockPos.below()).getBlock();
 
-        NonNullList<Ingredient> primaryIngredients = LightningFusionRecipe.getPrimaryIngredients();
-        NonNullList<Ingredient> secondaryIngredients = LightningFusionRecipe.getSecondaryInputs();
-        NonNullList<Ingredient> catalysts = LightningFusionRecipe.getCatalysts();
 
         ItemEntity primary = null;
         ItemEntity secondary = null;
 
-        int index = -1;
         int newCount = -1;
         int primaryCount;
         int secondaryCount;
         int discard = -1;
-        int maxProcessed = 16;
+        int maxProcessed = 1;
         boolean doRecipe = false;
 
         if(event.getEntity() instanceof ItemEntity){
@@ -59,27 +48,24 @@ public class LightningStrikeHandler {
 
         List<Entity> hitEntities = bolt.getHitEntities().toList();
 
-        for(int i = 0; i < catalysts.size(); i++) {
-            if (struckBlock.asItem() == catalysts.get(i).getItems()[0].getItem()) {
-                index = i;
+            if (struckBlock.asItem() == ModBlocks.SOUL_QUARTZ_BLOCK.get().asItem()) {
                 doRecipe = true;
             }
-            if (struckBlockBelow.asItem() == catalysts.get(i).getItems()[0].getItem() && struckBlock == Blocks.LIGHTNING_ROD) {
-                index = i;
-                doRecipe = true;
-            }
-        }
+
+            if (struckBlockBelow.asItem() == ModBlocks.SOUL_QUARTZ_BLOCK.get().asItem() && struckBlock == Blocks.LIGHTNING_ROD) {
+                doRecipe = true;}
+
 
         if(doRecipe) {
             for (Entity hitEntity : hitEntities) {
                 if (hitEntity instanceof ItemEntity) {
-                    if(((ItemEntity) hitEntity).getItem().getItem() == primaryIngredients.get(index).getItems()[0].getItem()){
-                        MoreTetraMaterials.LOGGER.info("primary found");
+                    if(((ItemEntity) hitEntity).getItem().getItem() == Items.IRON_INGOT){
+                        //MoreTetraMaterials.LOGGER.info("primary found");
                         primary = ((ItemEntity) hitEntity);
                         primary.setInvulnerable(true);
                     }
-                    if(((ItemEntity) hitEntity).getItem().getItem() == secondaryIngredients.get(index).getItems()[0].getItem()){
-                        MoreTetraMaterials.LOGGER.info("secondary found");
+                    if(((ItemEntity) hitEntity).getItem().getItem() == Blocks.SOUL_SAND.asItem()){
+                        //MoreTetraMaterials.LOGGER.info("secondary found");
                         secondary = ((ItemEntity) hitEntity);
                         secondary.setInvulnerable(true);
                     }
@@ -87,7 +73,7 @@ public class LightningStrikeHandler {
             }
 
             if(primary == null || secondary == null){
-                MoreTetraMaterials.LOGGER.info("ingredients not found");
+                //MoreTetraMaterials.LOGGER.info("ingredients not found");
                 return;
             }
 
