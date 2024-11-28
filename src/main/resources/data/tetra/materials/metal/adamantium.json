@@ -2,12 +2,12 @@
     "key": "adamantium",
     "category": "metal",
     "primary": 7.6,
-    "secondary": 3.4,
+    "secondary": 3.2,
     "tertiary": 3.6,
-    "durability": 2800,
+    "durability": 2048,
     "integrityCost": 3,
     "integrityGain": 8,
-    "magicCapacity": 90,
+    "magicCapacity": 80,
     "toolLevel": "mtetm:adamantium",
     "toolEfficiency": 9.5,
     "tints": {
@@ -22,6 +22,6 @@
         "items": [ "mtetm:adamantium_ingot" ]
     },
     "requiredTools": {
-        "hammer_dig": "mtetm:mithril"
+        "hammer_dig": "tetra:maxed_forge_hammer"
     }
 }

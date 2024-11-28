@@ -1,13 +1,13 @@
 {
     "key": "mithril",
     "category": "metal",
-    "primary": 6.9,
-    "secondary": 2.5,
+    "primary": 7.00,
+    "secondary": 3.0,
     "tertiary": 3.0,
-    "durability": 1580,
+    "durability": 2000,
     "integrityCost": 2,
     "integrityGain": 7,
-    "magicCapacity": 90,
+    "magicCapacity": 110,
     "toolLevel": "mtetm:mithril",
     "toolEfficiency": 8,
     "tints": {
@@ -22,6 +22,6 @@
         "items": [ "mtetm:mithril_ingot" ]
     },
     "requiredTools": {
-        "hammer_dig": "tetra:maxed_forge_hammer"
+        "hammer_dig": "minecraft:netherite"
     }
 }

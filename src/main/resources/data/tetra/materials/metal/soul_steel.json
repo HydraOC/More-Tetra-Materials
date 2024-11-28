@@ -1,0 +1,22 @@
+{
+  "key":"iron",
+  "category":"metal",
+  "primary":5.5,
+  "secondary":3.6,
+  "tertiary":3,
+  "durability":450,
+  "integrityCost":2,
+  "integrityGain":5,
+  "magicCapacity":95,
+  "toolLevel":"minecraft:diamond",
+  "toolEfficiency":6.2,
+  "tints":{
+    "glyph":"775D4D",
+    "texture":"775D4D"
+  },
+  "textures":["metal","default"],
+  "material":{
+    "items":["mtetm:soul_steel_ingot"]
+  },
+  "requiredTools":{"hammer_dig":"minecraft:gold"}
+}
