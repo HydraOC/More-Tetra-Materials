@@ -1,0 +1,21 @@
+{
+  "type": "mtetm:lightning_fusion",
+  "primaryIngredient": [
+    {
+      "item": "minecraft:quartz"
+    }
+  ],
+  "secondaryIngredient": [
+    {
+      "item": "minecraft:sculk"
+    }
+  ],
+  "catalyst": [
+    {
+      "item": "minecraft:soul_sand"
+    }
+  ],
+  "result": {
+    "item": "mtetm:soul_quartz_crystal"
+  }
+}

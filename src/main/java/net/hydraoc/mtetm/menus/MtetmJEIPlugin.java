@@ -12,10 +12,14 @@ import net.hydraoc.mtetm.recipe.HellSmelting.HellSmeltingCategory;
 import net.hydraoc.mtetm.recipe.HellSmelting.HellSmeltingRecipe;
 import net.hydraoc.mtetm.recipe.Smashing.SmashingCategory;
 import net.hydraoc.mtetm.recipe.Smashing.SmashingRecipe;
+import net.hydraoc.mtetm.recipe.LightningFusion.LightningFusionRecipe;
+import net.hydraoc.mtetm.recipe.LightningFusion.LightningFusionCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+
+import net.minecraft.world.level.block.Blocks;
 import se.mickelus.tetra.blocks.workbench.BasicWorkbenchBlock;
 
 
@@ -25,6 +29,7 @@ import java.util.List;
 public class MtetmJEIPlugin implements IModPlugin {
     public static final RecipeType<HellSmeltingRecipe> HELL_SMELTING = RecipeType.create(MoreTetraMaterials.MOD_ID, "hell_smelting", HellSmeltingRecipe.class);
     public static final RecipeType<SmashingRecipe> SMASHING = RecipeType.create(MoreTetraMaterials.MOD_ID, "smashing", SmashingRecipe.class);
+    //public static final RecipeType<LightningFusionRecipe> LIGHTNING = RecipeType.create(MoreTetraMaterials.MOD_ID, "lightning_fusion", LightningFusionRecipe.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -35,6 +40,7 @@ public class MtetmJEIPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new HellSmeltingCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new SmashingCategory(registration.getJeiHelpers().getGuiHelper()));
+        //registration.addRecipeCategories(new LightningFusionCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -47,6 +53,9 @@ public class MtetmJEIPlugin implements IModPlugin {
         List<SmashingRecipe> smashingRecipes = recipeManager.getAllRecipesFor(SmashingRecipe.Type.INSTANCE);
         registration.addRecipes(SmashingCategory.SMASHING_TYPE, smashingRecipes);
 
+        //List<LightningFusionRecipe> lightningRecipes = recipeManager.getAllRecipesFor(LightningFusionRecipe.Type.INSTANCE);
+        //registration.addRecipes(LightningFusionCategory.LIGHTNING_TYPE, lightningRecipes);
+
     }
 
     @Override
@@ -54,6 +63,7 @@ public class MtetmJEIPlugin implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.HELLFORGE.get()), RecipeTypes.BLASTING);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.HELLFORGE.get()), HELL_SMELTING);
         registry.addRecipeCatalyst(new ItemStack(BasicWorkbenchBlock.instance), SMASHING);
+        //registry.addRecipeCatalyst(new ItemStack(Blocks.LIGHTNING_ROD), LIGHTNING);
     }
 
     @Override

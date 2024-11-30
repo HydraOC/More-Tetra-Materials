@@ -12,26 +12,27 @@ import net.hydraoc.mtetm.recipe.Smashing.SmashingRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import se.mickelus.tetra.blocks.workbench.BasicWorkbenchBlock;
 
-public class LightningFusionCategory implements IRecipeCategory<SmashingRecipe> {
+public class LightningFusionCategory implements IRecipeCategory<LightningFusionRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(MoreTetraMaterials.MOD_ID, "lightning_fusion");
     public static final ResourceLocation TEXTURE = new ResourceLocation("jei", "textures/jei/gui/gui_vanilla.png");
 
-    public static final RecipeType<SmashingRecipe> SMASHING_TYPE =
-            new RecipeType<>(UID, SmashingRecipe.class);
+    public static final RecipeType<LightningFusionRecipe> LIGHTNING_TYPE =
+            new RecipeType<>(UID, LightningFusionRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public LightningFusionCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 220, 82, 34);
-        this.icon = helper.createDrawableItemStack(new ItemStack(BasicWorkbenchBlock.instance));
+        this.icon = helper.createDrawableItemStack(new ItemStack(Blocks.LIGHTNING_ROD));
     }
 
     @Override
-    public RecipeType<SmashingRecipe> getRecipeType() {
-        return SMASHING_TYPE;
+    public RecipeType<LightningFusionRecipe> getRecipeType() {
+        return LIGHTNING_TYPE;
     }
 
     @Override
@@ -50,8 +51,8 @@ public class LightningFusionCategory implements IRecipeCategory<SmashingRecipe> 
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SmashingRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 1, 9).addIngredients(recipe.getIngredients().get(0));
+    public void setRecipe(IRecipeLayoutBuilder builder, LightningFusionRecipe recipe, IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 1, 9).addIngredients(recipe.getPrimary());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 9).addItemStack(recipe.getResultItem(null));
     }
 }

@@ -1,13 +1,13 @@
 package net.hydraoc.mtetm.events;
 
-import net.hydraoc.mtetm.block.ModBlocks;
-import net.hydraoc.mtetm.item.ModItems;
+import net.hydraoc.mtetm.MoreTetraMaterials;
+import net.hydraoc.mtetm.recipe.LightningFusion.LightningFusionRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,104 +15,136 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = "mtetm")
 public class LightningStrikeHandler {
+    static int maxCount = 4;
 
     @SubscribeEvent
-    public static void onEntityStruckByLightning(EntityStruckByLightningEvent event){
-        //Get the lightning and level objects
-        LightningBolt bolt = event.getLightning();
-        Level level = bolt.level();
-
-        //Get the block the lightning strikes and the one below it
-        BlockPos struckBlockPos = bolt.blockPosition().below();
-        Block struckBlock = level.getBlockState(struckBlockPos).getBlock();
-        Block struckBlockBelow = level.getBlockState(struckBlockPos.below()).getBlock();
-
-
-        ItemEntity primary = null;
-        ItemEntity secondary = null;
-
-        int newCount = -1;
-        int primaryCount;
-        int secondaryCount;
-        int discard = -1;
-        int maxProcessed = 1;
-        boolean doRecipe = false;
+    public static void onEntityStruckByLightning(EntityStruckByLightningEvent event) {
+        if(!(event.getEntity() instanceof ItemEntity)){ //If the hit entity is not an item, I don't want this running
+            return;
+        }
 
         if(event.getEntity() instanceof ItemEntity){
             event.getEntity().setInvulnerable(true);
         }
 
-        List<Entity> hitEntities = bolt.getHitEntities().toList();
+        ArrayList<ItemEntity> hitItems = new ArrayList<ItemEntity>(); //ArrayList to store all hit items
 
-            if (struckBlock.asItem() == ModBlocks.SOUL_QUARTZ_BLOCK.get().asItem()) {
-                doRecipe = true;
+        //Reduce the number of entities we have to check to only the item entities
+        for(Entity hitEntity : event.getLightning().getHitEntities().toList()){
+            if(hitEntity instanceof ItemEntity){
+                hitEntity.setInvulnerable(true);
+                hitItems.add((ItemEntity) hitEntity);
             }
+        }
 
-            if (struckBlockBelow.asItem() == ModBlocks.SOUL_QUARTZ_BLOCK.get().asItem() && struckBlock == Blocks.LIGHTNING_ROD) {
-                doRecipe = true;}
+        //Run nothing else if there are no items, it will only waste resources
+        if(hitItems.isEmpty()){
+            MoreTetraMaterials.LOGGER.info("No items found");
+            return;
+        }
 
+        Level level = event.getLightning().level();
+        List<LightningFusionRecipe> recipeList = level.getRecipeManager().getAllRecipesFor(LightningFusionRecipe.Type.INSTANCE);
+        ArrayList<LightningFusionRecipe> possibleRecipes = new ArrayList<>();
+        ItemEntity hitEntity = (ItemEntity) event.getEntity();
 
-        if(doRecipe) {
-            for (Entity hitEntity : hitEntities) {
-                if (hitEntity instanceof ItemEntity) {
-                    if(((ItemEntity) hitEntity).getItem().getItem() == Items.IRON_INGOT){
-                        //MoreTetraMaterials.LOGGER.info("primary found");
-                        primary = ((ItemEntity) hitEntity);
-                        primary.setInvulnerable(true);
-                    }
-                    if(((ItemEntity) hitEntity).getItem().getItem() == Blocks.SOUL_SAND.asItem()){
-                        //MoreTetraMaterials.LOGGER.info("secondary found");
-                        secondary = ((ItemEntity) hitEntity);
-                        secondary.setInvulnerable(true);
-                    }
+        //Reduce all recipes down to those whose primary ingredient match the hit entity
+        for(LightningFusionRecipe recipe : recipeList){
+            if(hitEntity.getItem().getItem() == recipe.getPrimary().getItems()[0].getItem()){
+                possibleRecipes.add(recipe);
+            }
+        }
+
+        //Exit if there are no matching recipes
+        if(possibleRecipes.isEmpty()){
+            MoreTetraMaterials.LOGGER.info("No recipies found");
+            return;
+        }
+
+        RegistryAccess registry = level.registryAccess();
+        LightningFusionRecipe foundrecipe = null;
+        ItemEntity sEntity = null;
+
+        for(LightningFusionRecipe recipe : possibleRecipes){
+            for(ItemEntity item : hitItems){
+                if(foundrecipe != null){
+                    break;
+                }
+                if(item.getItem().getItem() == recipe.getSecondary().getItems()[0].getItem()){
+                    foundrecipe = recipe;
+                    sEntity = item;
                 }
             }
+            if(foundrecipe != null){
+                break;
+            }
+        }
 
-            if(primary == null || secondary == null){
-                //MoreTetraMaterials.LOGGER.info("ingredients not found");
+        //No matching recipes found, so exit the handler
+        if(foundrecipe == null){
+            MoreTetraMaterials.LOGGER.info("No secondary found");
+            return;
+        }
+
+        for(ItemEntity hit : hitItems){
+            if(hit.getItem().getItem() == foundrecipe.getResultItem(registry).getItem()){
                 return;
             }
-
-
-            primaryCount = primary.getItem().getCount();
-            secondaryCount = secondary.getItem().getCount();
-
-            if(primaryCount > maxProcessed && secondaryCount > maxProcessed){
-                newCount = maxProcessed;
-            }else if(primaryCount < secondaryCount){
-                discard = 0;
-                newCount = primaryCount;
-            }else if(primaryCount > secondaryCount){
-                discard = 1;
-                newCount = secondaryCount;
-            }else {
-                discard = 2;
-                newCount = primaryCount;
-            }
-
-            ItemStack newItemStack = new ItemStack(ModItems.SOUL_STEEL_INGOT.get(), newCount);
-
-            if (!level.isClientSide) { //Check if the event is serverside
-                if(discard == 0){primary.discard();}
-                else if(discard == 1){secondary.discard();}
-                else if(discard == 2){
-                    primary.discard();
-                    secondary.discard();
-                }else{
-                    primary.getItem().setCount(primary.getItem().getCount()-maxProcessed);
-                    secondary.getItem().setCount(secondary.getItem().getCount()-maxProcessed);
-                }
-
-                ItemEntity newItemEntity = new ItemEntity(level, primary.getX(), primary.getY(), primary.getZ(), newItemStack);
-                newItemEntity.setInvulnerable(true);
-                level.addFreshEntity(newItemEntity);
-            }
-
-
         }
+
+        //Get the block the lightning strikes and the one below it
+        BlockPos struckBlockPos = event.getLightning().blockPosition().below();
+        Block struckBlock = level.getBlockState(struckBlockPos).getBlock();
+        Block struckBlockBelow = level.getBlockState(struckBlockPos.below()).getBlock();
+        Item catalyst = foundrecipe.getCatalyst().getItems()[0].getItem();
+
+        boolean doRecipe = false;
+
+        if (struckBlock.asItem() == catalyst) {
+            doRecipe = true;
+        }
+
+        if (struckBlockBelow.asItem() == catalyst && struckBlock == Blocks.LIGHTNING_ROD) {
+            doRecipe = true;
+        }
+
+        if(!doRecipe){
+            MoreTetraMaterials.LOGGER.info("No catalyst found");
+        }
+        if(doRecipe){
+            int pCount = hitEntity.getItem().getCount();
+            int sCount = sEntity.getItem().getCount();
+            int produceCount = 0;
+
+            if(pCount >= maxCount && sCount >= maxCount){
+                produceCount = maxCount;
+                hitEntity.getItem().setCount(hitEntity.getItem().getCount()-maxCount);
+                sEntity.getItem().setCount(sEntity.getItem().getCount()-maxCount);
+            }else if(pCount > sCount){
+                produceCount = sCount;
+                hitEntity.getItem().setCount(hitEntity.getItem().getCount()-maxCount);
+                sEntity.discard();
+            }else if(pCount < sCount){
+                produceCount = pCount;
+                sEntity.getItem().setCount(sEntity.getItem().getCount()-maxCount);
+                hitEntity.discard();
+            }else{
+                produceCount = pCount;
+                sEntity.discard();
+                hitEntity.discard();
+            }
+
+            ItemStack newItemStack = new ItemStack(foundrecipe.getResultItem(registry).getItem(), produceCount);
+            ItemEntity newItemEntity = new ItemEntity(level, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ(), newItemStack);
+            newItemEntity.setInvulnerable(true);
+            level.addFreshEntity(newItemEntity);
+        }
+
     }
+
 }
